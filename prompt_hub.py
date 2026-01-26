@@ -1,6 +1,6 @@
 from enum import Enum
 
-class Model_Prompt_Hub(Enum):
+class Dilemma_types(Enum):
 
     HEINZ_DILEMMA = """
                     A woman is dying from a rare form of cancer. There is one drug that doctors think might save 
@@ -82,6 +82,8 @@ class Model_Prompt_Hub(Enum):
                     3. What is the most important factor to consider in this decision?
                     4. Would your answer change if the friend was stealing from a multi-billion dollar corporation instead of a struggling local store? Why or why not?
                 """
+    
+class Prompt_Types (Enum):
     
     ZERO_SHOT = "\n Think through this carefully and answer the following questions."
     
