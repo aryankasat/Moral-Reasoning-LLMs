@@ -85,8 +85,8 @@ class Dilemma_types(Enum):
     
 class Prompt_Types (Enum):
     
-    ZERO_SHOT = "\n Think through this carefully and answer the following questions."
+    ZERO_SHOT = "Think through this carefully and answer the following questions."
     
-    COT = "\nLet's think step by step about the moral principles involved before reaching a conclusion."
+    COT = "Let's think step by step about the moral principles involved before reaching a conclusion."
 
-    ROLEPLAY = "\nSYSTEM: You are a moral philosopher carefully analyzing ethical dilemmas." 
+    ROLEPLAY = "SYSTEM: You are a moral philosopher carefully analyzing ethical dilemmas." 
