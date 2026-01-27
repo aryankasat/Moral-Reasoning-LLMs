@@ -10,8 +10,8 @@ load_dotenv()
 # --- Configuration & Initialization ---
 USERNAME = os.getenv("PUTER_USERNAME")
 PASSWORD = os.getenv("PUTER_PASSWORD")
-MODEL_NAME = os.getenv("PUTER_CLAUDE_4_HAIKU_MODEL")  # Or your preferred model ID
-FILE_NAME = "mistral_7_instruct.xlsx"
+MODEL_NAME = os.getenv("PUTER_CLAUDE_3_5_HAIKU_MODEL")  # Or your preferred model ID
+FILE_NAME = "claude_haiku_3_5.xlsx"
 
 puter_ai = PuterAI(username=USERNAME, password=PASSWORD)
 all_results = []
