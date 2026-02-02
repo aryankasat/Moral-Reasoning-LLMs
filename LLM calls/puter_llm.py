@@ -10,10 +10,10 @@ load_dotenv()
 # --- Configuration & Initialization ---
 USERNAME = os.getenv("PUTER_USERNAME")
 PASSWORD = os.getenv("PUTER_PASSWORD")
-MODEL_NAME = os.getenv("PUTER_CLAUDE_3_5_HAIKU_MODEL")  # Or your preferred model ID
-FILE_NAME = "claude_haiku_3_5.xlsx"
+MODEL_NAME = os.getenv("PUTER_DEEPSEEK_V3_1")  # Or your preferred model ID
+FILE_NAME = "deepseek_v3_1.xlsx"
 
-puter_ai = PuterAI(username=USERNAME, password=PASSWORD)
+puter_ai = PuterAI(username=USERNAME, password=PASSWORD,timeout=300)
 all_results = []
 
 # --- Authentication ---
