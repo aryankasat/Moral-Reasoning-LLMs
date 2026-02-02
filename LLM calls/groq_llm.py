@@ -8,7 +8,7 @@ import pandas as pd
 load_dotenv()
 
 client = Groq(api_key = os.getenv("GROQ_API_KEY"))
-model_name = os.getenv("GROQ_GPT_OSS_MODEL")
+model_name = os.getenv("GROQ_QWEN3_32B")
 all_results = []
 
 for prompt_item in Prompt_Types:
@@ -48,7 +48,7 @@ for prompt_item in Prompt_Types:
 
 
 df_new = pd.DataFrame(all_results)
-file_name = "gpt-oss-120B.xlsx"
+file_name = "qwen3_32b.xlsx"
 
 if os.path.exists(file_name):
     df_existing = pd.read_excel(file_name)
