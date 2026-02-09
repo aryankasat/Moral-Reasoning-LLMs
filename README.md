@@ -56,8 +56,3 @@ python evaluation_data/puter_evaluation_llm.py
 - Add provider-specific credentials as environment variables before running model wrappers.
 - Model wrappers are in `LLM calls/` — adapt them to your API keys and desired parameters.
 - Save outputs and results under `data/` and use the scripts in `evaluation_data/` to aggregate results.
-
-## Contributing
-
-- Create an issue or PR for new prompts, models, or evaluation metrics.
-- Keep large binary/session files out of git; add them to `.gitignore` if needed.
