@@ -13,9 +13,9 @@ USERNAME = os.getenv("PUTER_USERNAME")
 PASSWORD = os.getenv("PUTER_PASSWORD")
 MODEL_NAME = os.getenv("PUTER_GPT_5_MODEL") 
 
-FILE_NAME = "qwen3_30B_Coder_Instruct"
+FILE_NAME = "claude_sonnet_4_5"
 INPUT_FILE = f"data/{FILE_NAME}.xlsx"
-OUTPUT_FILE = f"evaluation_data/{FILE_NAME}_evaluation1.xlsx"
+OUTPUT_FILE = f"evaluation_data/{FILE_NAME}_evaluation.xlsx"
 
 MAX_RETRIES = 3  # How many times to retry if JSON is invalid
 
@@ -86,8 +86,6 @@ scored_results = []
 print(f"🚀 Starting Analysis with model: {puter_ai.current_model}")
 
 for index, row in df.iterrows():
-    if index+1 < 18:
-        continue
     dilemma_name = row['dilemma_type']
     response_text = row['response']
     
