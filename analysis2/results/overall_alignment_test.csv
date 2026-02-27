@@ -1,0 +1,2 @@
+mean_a,mean_b,delta,delta_ci_lo,delta_ci_hi,u_stat,p_value,cohens_d,rank_biserial,effect_label,pct_post_a,pct_post_b,group_a,group_b
+5.298611,5.522222,0.223611,0.081944,0.363889,5035.000000,0.000851,0.437468,-0.222994,small,98.611111,97.777778,Instruction-Tuned,RLHF / RL-Aligned

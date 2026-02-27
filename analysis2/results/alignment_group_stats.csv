@@ -1,0 +1,3 @@
+alignment_type,n_obs,n_models,mean_stage,median_stage,std_stage,ci_lo,ci_hi,pct_post_conv,stage_1_pct,stage_2_pct,stage_3_pct,stage_4_pct,stage_5_pct,stage_6_pct
+Instruction-Tuned,144,8,5.2986,5.0000,0.4888,5.2222,5.3819,98.6111,0.0000,0.0000,0.0000,1.3889,67.3611,31.2500
+RLHF / RL-Aligned,90,5,5.5222,6.0000,0.5452,5.4111,5.6333,97.7778,0.0000,0.0000,0.0000,2.2222,43.3333,54.4444
