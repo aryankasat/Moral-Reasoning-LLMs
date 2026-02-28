@@ -174,12 +174,13 @@ def plot_scatter_scale_stage(
 
     Figure width: 120 mm (single-column wide / 1.5-column).
     """
-    # Wider figure for breathing room on x-axis
-    fig, ax = plt.subplots(figsize=(160 * MM, 105 * MM))
+    # Wider figure for breathing room on x-axis + extra height for label spreading
+    fig, ax = plt.subplots(figsize=(185 * MM, 125 * MM))
 
     x = summary["log_params"].values
     y = summary["mean_stage"].values
 
+    texts = []
     for _, row in summary.iterrows():
         col = _provider_color(row["provider"])
         ax.errorbar(
@@ -190,17 +191,28 @@ def plot_scatter_scale_stage(
             ecolor=col, elinewidth=1.0, capsize=3.0, capthick=0.8,
             markersize=7, zorder=5,
         )
-        # label offset: left half of chart → label to right, right half → left
-        offset = (7, 4) if row["log_params"] < np.median(x) else (-7, 4)
-        ha = "left" if offset[0] > 0 else "right"
-        ax.annotate(
+        # Collect text objects — adjustText will reposition them automatically
+        t = ax.text(
+            row["log_params"], row["mean_stage"],
             row["display_name"],
-            xy=(row["log_params"], row["mean_stage"]),
-            xytext=offset, textcoords="offset points",
-            fontsize=6.5, ha=ha, alpha=0.85,
-            arrowprops=dict(arrowstyle="-", color="#aaaaaa",
-                            lw=0.5, shrinkA=0, shrinkB=3),
+            fontsize=6.5, alpha=0.88,
         )
+        texts.append(t)
+
+    # Auto-repel overlapping labels and draw thin connector arrows back to dots
+    from adjustText import adjust_text
+    adjust_text(
+        texts,
+        x=x, y=y,
+        ax=ax,
+        arrowprops=dict(arrowstyle="-", color="#aaaaaa", lw=0.5, shrinkA=5),
+        expand=(1.4, 1.6),
+        force_text=(0.6, 0.8),
+        force_points=(0.5, 0.6),
+        ensure_inside_axes=True,
+        min_arrow_len=6,
+        max_move=3.0,
+    )
 
     # OLS trend (visual only — Spearman used for statistics)
     m, b = np.polyfit(x, y, 1)
