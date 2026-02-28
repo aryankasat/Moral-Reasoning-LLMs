@@ -55,7 +55,7 @@ def plot_violin_by_alignment(df: pd.DataFrame, out_dir: Path) -> None:
     Paired violin plots (IT left, RLHF right) showing full stage distributions.
     Individual model mean stages overlaid as jittered dots.
     """
-    fig, ax = plt.subplots(figsize=(120 * MM, 100 * MM))
+    fig, ax = plt.subplots(figsize=(150 * MM, 110 * MM))
 
     # Map alignment to numeric position for seaborn
     order = [IT, RLHF]
@@ -109,11 +109,15 @@ def plot_violin_by_alignment(df: pd.DataFrame, out_dir: Path) -> None:
     for s in ALL_STAGES:
         ax.axhline(s, color="#eeeeee", linewidth=0.5, zorder=0)
 
-    ax.legend(handles=_align_legend_handles(),
-              title="Alignment Type", fontsize=8.5, loc="lower right",
-              framealpha=0.92, edgecolor="#cccccc")
+    # Legend anchored to the right of the axes — completely outside the data area
+    leg = ax.legend(handles=_align_legend_handles(),
+                    title="Alignment Type", fontsize=8.5,
+                    loc="upper left", bbox_to_anchor=(1.03, 1),
+                    framealpha=0.92, edgecolor="#cccccc", borderaxespad=0)
 
     fig.tight_layout()
+    # Reserve the right margin so bbox_inches='tight' in _save keeps the legend
+    fig.subplots_adjust(right=0.78)
     _save(fig, out_dir, "fig1_violin_by_alignment.png")
 
 
@@ -130,7 +134,7 @@ def plot_family_comparisons(
     Effect size and significance annotated.
     """
     n = len(family_results)
-    fig, ax = plt.subplots(figsize=(160 * MM, max(80, n * 22) * MM))
+    fig, ax = plt.subplots(figsize=(175 * MM, max(90, n * 24) * MM))
 
     bar_h = 0.32
     y_base = np.arange(n) * 1.1   # spacing between pairs
@@ -149,9 +153,10 @@ def plot_family_comparisons(
 
         # Δ annotation + significance (plain ASCII — avoids missing-glyph warning)
         sig = "*" if row["p_value"] < 0.05 else "n.s."
-        d_str = f"d={row['cohens_d']:+.2f}, {sig}"
+        cd = row["cohens_d"]
+        d_str = (f"d={cd:+.2f}, {sig}") if pd.notna(cd) else f"d=N/A, {sig}"
         max_val = max(row["mean_a"], row["mean_b"])
-        ax.text(max_val + 0.05, y_base[i], d_str,
+        ax.text(max_val + 0.08, y_base[i], d_str,
                 va="center", fontsize=7.5, color="#333")
 
         # Model labels at bar start
@@ -162,24 +167,27 @@ def plot_family_comparisons(
 
     ax.set_yticks(y_base)
     ax.set_yticklabels(family_results["comparison"], fontsize=9)
-    ax.set_xlim(0, 7.0)
+    ax.set_xlim(0, 7.5)   # extra room on the right for the d= text
     ax.set_xticks(range(1, 7))
     ax.set_xticklabels([f"S{s}" for s in range(1, 7)], fontsize=9)
     ax.set_xlabel("Mean Kohlberg Stage", labelpad=5)
     ax.set_title(
         "Within-Family Comparisons: Mean Moral Reasoning Stage\n"
-        "(Δ = model B − model A; ✓ = p < 0.05 Wilcoxon rank-sum)",
+        "(d = Cohen's d, * = p < 0.05 Wilcoxon rank-sum)",
         fontsize=10, pad=10, fontweight="bold",
     )
 
     for s in range(1, 7):
         ax.axvline(s, color="#eeeeee", linewidth=0.6, zorder=0)
 
+    # Legend completely outside the data area — anchored to the right of the axes
     ax.legend(handles=_align_legend_handles(),
-              title="Alignment Type", fontsize=8.5, loc="lower right",
-              framealpha=0.92, edgecolor="#cccccc")
+              title="Alignment Type", fontsize=8.5,
+              loc="upper left", bbox_to_anchor=(1.03, 1),
+              framealpha=0.92, edgecolor="#cccccc", borderaxespad=0)
 
     fig.tight_layout()
+    fig.subplots_adjust(right=0.78)
     _save(fig, out_dir, "fig2_family_comparisons.png")
 
 
@@ -195,7 +203,7 @@ def plot_stacked_stage_dist(align_stats: pd.DataFrame, out_dir: Path) -> None:
     # Sequential palette for Kohlberg stages (low=warm, high=cool)
     stage_palette = ["#d73027", "#fc8d59", "#fee090", "#91bfdb", "#4575b4", "#1a237e"]
 
-    fig, ax = plt.subplots(figsize=(140 * MM, 70 * MM))
+    fig, ax = plt.subplots(figsize=(150 * MM, 90 * MM))
 
     lefts = np.zeros(len(order))
     for s, col, color in zip(ALL_STAGES, stage_cols, stage_palette):
@@ -222,10 +230,13 @@ def plot_stacked_stage_dist(align_stats: pd.DataFrame, out_dir: Path) -> None:
     ax.set_yticklabels(order, fontsize=9.5)
     ax.set_xticks(range(0, 101, 20))
 
-    ax.legend(title="Kohlberg Stage", fontsize=8.5, title_fontsize=9,
-              loc="lower right", ncol=3, framealpha=0.92, edgecolor="#cccccc")
+    # Legend placed below the axes — use subplots_adjust for reliable clearance
+    leg = ax.legend(title="Kohlberg Stage", fontsize=8.5, title_fontsize=9,
+                    loc="upper center", bbox_to_anchor=(0.5, -0.18),
+                    ncol=6, framealpha=0.92, edgecolor="#cccccc", borderaxespad=0)
 
     fig.tight_layout()
+    fig.subplots_adjust(bottom=0.28)   # enough room below for the 2-row legend
     _save(fig, out_dir, "fig3_stacked_stage_dist.png")
 
 
@@ -239,7 +250,7 @@ def plot_pct_postconv(model_stats: pd.DataFrame, out_dir: Path) -> None:
     s = model_stats.sort_values("pct_post_conv")
     n = len(s)
 
-    fig, ax = plt.subplots(figsize=(130 * MM, max(80, n * 13) * MM))
+    fig, ax = plt.subplots(figsize=(145 * MM, max(90, n * 13) * MM))
 
     y_pos = np.arange(n)
     colors = [ALIGN_COLORS[a] for a in s["alignment_type"]]
@@ -257,14 +268,14 @@ def plot_pct_postconv(model_stats: pd.DataFrame, out_dir: Path) -> None:
     ax.axvline(rlhf_mean, color=ALIGN_COLORS[RLHF], linewidth=1.2,
                linestyle="--", alpha=0.7, label=f"RLHF mean = {rlhf_mean:.1f}%")
 
-    # Annotate values
+    # Annotate values — offset to the left of the dot to avoid right-edge clipping
     for xi, yi, val in zip(s["pct_post_conv"], y_pos, s["pct_post_conv"]):
-        ax.text(xi + 1.2, yi, f"{val:.0f}%", va="center", fontsize=7.5)
+        ax.text(xi - 1.5, yi, f"{val:.0f}%", va="center", ha="right", fontsize=7.5)
 
     ax.set_yticks(y_pos)
     ax.set_yticklabels(s["display_name"], fontsize=8.5)
-    ax.set_xlim(0, 115)
-    ax.set_xlabel(f"% of Responses at Stage ≥ {POST_CONV_THRESHOLD} (Post-Conventional)",
+    ax.set_xlim(0, 110)
+    ax.set_xlabel(f"% of Responses at Stage >= {POST_CONV_THRESHOLD} (Post-Conventional)",
                   labelpad=5)
     ax.set_title(
         "Post-Conventional Reasoning Rate per Model\n"
@@ -272,13 +283,15 @@ def plot_pct_postconv(model_stats: pd.DataFrame, out_dir: Path) -> None:
         fontsize=10, pad=10, fontweight="bold",
     )
 
+    # Data is clustered at the top-right; place legend at the bottom-left where space is free
     ax.legend(handles=_align_legend_handles() + [
         mlines.Line2D([], [], color=ALIGN_COLORS[IT],   linewidth=1.2,
                       linestyle="--", label=f"IT mean = {it_mean:.1f}%"),
         mlines.Line2D([], [], color=ALIGN_COLORS[RLHF], linewidth=1.2,
                       linestyle="--", label=f"RLHF mean = {rlhf_mean:.1f}%"),
-    ], fontsize=7.5, title="Legend", loc="lower right",
-              framealpha=0.92, edgecolor="#cccccc")
+    ], fontsize=7.5, title="Legend",
+              loc="lower left", bbox_to_anchor=(0.02, 0.01),
+              framealpha=0.92, edgecolor="#cccccc", borderaxespad=0)
 
     fig.tight_layout()
     _save(fig, out_dir, "fig4_pct_postconv.png")

@@ -142,12 +142,13 @@ def plot_box_by_model(
     )
     ax.set_xlim(0.5, 6.7)
 
-    # Provider legend (top-right)
+    # Provider legend — outside the axes on the right so no box is obscured
     leg = ax.legend(
         handles=_provider_legend_handles(),
         title="Provider", title_fontsize=8,
-        loc="lower right", fontsize=8,
-        framealpha=0.92, edgecolor="#cccccc",
+        loc="upper left", bbox_to_anchor=(1.02, 1),
+        fontsize=8, framealpha=0.92, edgecolor="#cccccc",
+        borderaxespad=0,
     )
     leg.get_frame().set_linewidth(0.6)
 
@@ -156,6 +157,7 @@ def plot_box_by_model(
         ax.axvline(s, color="#dddddd", linewidth=0.6, zorder=0)
 
     fig.tight_layout()
+    fig.subplots_adjust(right=0.78)
     _save(fig, out_dir, "fig1_box_stage_by_model.png")
 
 
@@ -213,7 +215,7 @@ def plot_scatter_scale_stage(
         "\n"
         rf"95% CI [{corr['ci_lo']:.3f}, {corr['ci_hi']:.3f}]"
         "\n"
-        rf"$R^2$ = {corr['r2']:.3f},  {sig_str}"
+        rf"$\rho^2$ = {corr['r2']:.3f},  {sig_str}"
         "\n"
         rf"Effect: {corr['effect']}"
     )
@@ -251,23 +253,24 @@ def plot_scatter_scale_stage(
     ax.set_ylim(4.5, 6.7)
 
     ax.set_xlabel("Model Scale  (approximate parameter count, log scale)", labelpad=6)
-    ax.set_ylabel("Mean Kohlberg Stage  ± 95% Bootstrap CI", labelpad=5)
+    ax.set_ylabel("Mean Kohlberg Stage  +/- 95% Bootstrap CI", labelpad=5)
     ax.set_title(
         "Model Scale vs. Moral Reasoning Stage",
         fontsize=11, pad=10, fontweight="bold",
     )
 
-    # Legend
+    # Legend — anchor to the right of the axes; data cluster is at lower-right
     leg_handles = _provider_legend_handles()
     leg_handles.append(
         mlines.Line2D([], [], color="#555555", linewidth=1.2,
                       linestyle="--", label="Linear trend (OLS)")
     )
     ax.legend(handles=leg_handles, title="Provider", fontsize=7.5,
-              title_fontsize=8, loc="lower right",
-              framealpha=0.92, edgecolor="#cccccc")
+              title_fontsize=8, loc="upper left", bbox_to_anchor=(1.02, 1),
+              framealpha=0.92, edgecolor="#cccccc", borderaxespad=0)
 
     fig.tight_layout()
+    fig.subplots_adjust(right=0.78)
     _save(fig, out_dir, "fig2_scatter_scale_vs_stage.png")
 
 
@@ -365,16 +368,16 @@ def plot_mean_stage_bar(summary: pd.DataFrame, out_dir: Path) -> None:
         zorder=3,
     )
 
-    # Annotate bar ends
-    for bar, val in zip(bars, s["mean_stage"]):
+    # Annotate bar ends — offset past the CI cap so text doesn't clip
+    for bar, val, hi in zip(bars, s["mean_stage"], s["ci_hi"]):
         ax.text(
-            val + 0.06,
+            hi + 0.12,
             bar.get_y() + bar.get_height() / 2,
             f"{val:.2f}",
             va="center", fontsize=7.5, color="#333333",
         )
 
-    ax.set_xlim(4.0, 6.8)
+    ax.set_xlim(4.0, 7.0)
     ax.set_xticks(range(1, 7))
     ax.set_xticklabels(
         ["S1", "S2", "S3", "S4\nLaw &\nOrder",
@@ -394,14 +397,16 @@ def plot_mean_stage_bar(summary: pd.DataFrame, out_dir: Path) -> None:
     for s_val in range(4, 7):
         ax.axvline(s_val, color="#dddddd", linewidth=0.6, zorder=0)
 
-    # Provider legend (top left)
+    # Provider legend — outside axes to the right, clear of all bars
     leg = ax.legend(
         handles=_provider_legend_handles(),
         title="Provider", title_fontsize=8,
-        loc="upper left", fontsize=8,
-        framealpha=0.92, edgecolor="#cccccc",
+        loc="upper left", bbox_to_anchor=(1.02, 1),
+        fontsize=8, framealpha=0.92, edgecolor="#cccccc",
+        borderaxespad=0,
     )
     leg.get_frame().set_linewidth(0.6)
 
     fig.tight_layout()
+    fig.subplots_adjust(right=0.78)
     _save(fig, out_dir, "fig4_bar_mean_stage.png")

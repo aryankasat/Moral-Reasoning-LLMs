@@ -135,6 +135,8 @@ def spearman_with_ci(
     else:
         effect = "negligible"
 
+    # rho2 = Spearman rho squared (proportion of variance in ranks explained)
+    # Keep key as 'r2' for backward compatibility with downstream consumers
     return dict(rho=float(rho), p=float(p),
                 ci_lo=ci_lo, ci_hi=ci_hi,
                 r2=float(rho ** 2), effect=effect)
@@ -145,10 +147,11 @@ def spearman_with_ci(
 def run_nonparametric_tests(df: pd.DataFrame) -> dict:
     """
     Kruskal-Wallis H test across all models, followed by
-    Dunn pairwise post-hoc with Bonferroni correction.
+    Dunn pairwise post-hoc with Holm-Bonferroni correction.
 
     Returns dict with keys:
-        kw_stat, kw_p, dunn  (dunn is a pd.DataFrame of adjusted p-values)
+        kw_stat, kw_p, dunn  (dunn is a pd.DataFrame of adjusted p-values
+                               with display_name labels)
     """
     groups = [g["kohlberg_stage"].values for _, g in df.groupby("model_key")]
     kw_stat, kw_p = kruskal(*groups)
@@ -157,6 +160,16 @@ def run_nonparametric_tests(df: pd.DataFrame) -> dict:
         df,
         val_col="kohlberg_stage",
         group_col="model_key",
-        p_adjust="bonferroni",
+        p_adjust="holm",   # Holm-Bonferroni: controls FWER, less conservative than raw Bonferroni
     )
+
+    # Remap model_key → display_name for readable output
+    key_to_name = (
+        df[["model_key", "display_name"]]
+        .drop_duplicates()
+        .set_index("model_key")["display_name"]
+        .to_dict()
+    )
+    dunn_df = dunn_df.rename(index=key_to_name, columns=key_to_name)
+
     return dict(kw_stat=float(kw_stat), kw_p=float(kw_p), dunn=dunn_df)

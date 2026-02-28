@@ -81,7 +81,7 @@ def print_report(
     print(f"  95% CI       = [{corr['ci_lo']:.4f},  {corr['ci_hi']:.4f}]")
     print(f"  p-value      = {corr['p']:.6f}"
           + ("  ✓ sig. (α=0.05)" if corr["p"] < 0.05 else "  ✗ not sig."))
-    print(f"  R²           = {corr['r2']:.4f}  ({corr['r2']*100:.1f}% variance explained)")
+    print(f"  rho^2        = {corr['r2']:.4f}  ({corr['r2']*100:.1f}% variance in ranks explained)")
     print(f"  Effect size  = {corr['effect']}")
 
     # ── Kruskal-Wallis ────────────────────────────────────────────────────
@@ -101,7 +101,7 @@ def print_report(
         f"  There is a {direction} {corr['effect']}-effect correlation (ρ = {corr['rho']:.3f})\n"
         f"  between model parameter scale (log) and mean Kohlberg stage.\n"
         f"  This correlation is {sig_label}.\n"
-        f"  Scale explains ~{corr['r2']*100:.1f}% of variance in mean moral reasoning stage.\n"
+        f"  Scale (rho^2) explains ~{corr['r2']*100:.1f}% of variance in rank order of mean moral reasoning stage.\n"
         "\n"
         f"  Kruskal-Wallis confirms that between-model differences are\n"
         f"  {'highly' if tests['kw_p'] < 0.001 else ''} significant (p = {tests['kw_p']:.2e}),\n"
