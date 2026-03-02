@@ -35,22 +35,15 @@ Moral-Reasoning-LLMs/
 │   ├── puter_evaluation_llm.py  # Auto-evaluation script
 │   └── update_excel.py          # Helper to patch evaluation files
 │
-├── analysis1/                   # Scale vs. moral reasoning analysis (modular)
-│   ├── config.py                # Paths, MODEL_META registry, colour palette, rcParams
-│   ├── data_loader.py           # Loads & joins data + evaluation xlsx files
-│   ├── stat_analysis.py         # Per-model stats, bootstrap CI, Spearman ρ, KW+Dunn
-│   ├── visualizations.py        # 4 publication-quality figures (300 dpi)
-│   ├── reporting.py             # CSV export + structured console report
-│   ├── main.py                  # Entry point — run this
-│   └── results/                 # Auto-generated outputs (figures + CSVs)
-│       ├── fig1_box_stage_by_model.png
-│       ├── fig2_scatter_scale_vs_stage.png
-│       ├── fig3_heatmap_stage_distribution.png
-│       ├── fig4_bar_mean_stage.png
-│       ├── model_stats.csv
-│       ├── spearman_correlation.csv
-│       └── dunn_posthoc_pvalues.csv
+├── analysis1/                   # Analysis 1: Scale vs. Moral Reasoning Stage
 │
+├── analysis2/                   # Analysis 2: Prompt Engineering Impact
+│
+├── analysis3/                   # Analysis 3: Consistency & Stability
+│
+├── analysis4/                   # Analysis 4: Stage Distribution Patterns
+│
+
 ├── requirements.txt
 └── README.md
 ```
@@ -82,7 +75,9 @@ python evaluation_data/puter_evaluation_llm.py
 # Outputs saved to evaluation_data/<model_name>_evaluation.xlsx
 ```
 
-### 4. Run the scale vs. moral reasoning analysis
+### 4. Run the Statistical Analyses
+
+Each analysis module operates independently. Change into the desired directory and run its `main.py` entry point.
 
 ```bash
 cd analysis1/
@@ -92,42 +87,29 @@ python main.py
 
 ---
 
-## Analysis: Scale vs. Moral Reasoning
+## Analysis Modules
 
-The `analysis1/` module answers:
+The project is divided into four main analysis modules, each answering a specific research question about how LLMs reason about morality:
 
-> **Do larger models show higher Kohlberg moral reasoning stages?**
+### Analysis 1 — Scale vs. Moral Reasoning
+**Research Question:** Do larger models show higher Kohlberg moral reasoning stages?
+- **Methods:** Spearman correlation ($\rho$) between parameter count and mean stage, bootstrap confidence intervals, Kruskal-Wallis tests.
+- **Key finding:** Moderate positive correlation, but diminishing returns for the largest models.
 
-### Methodology
+### Analysis 2 — Prompt Engineering Impact
+**Research Question:** Does Chain-of-Thought (CoT) or Roleplay prompting improve moral reasoning compared to Zero-Shot out-of-the-box performance?
+- **Methods:** Repeated-measures ANOVA (Friedman test), Wilcoxon signed-rank post-hoc, magnitude of change analysis.
+- **Key finding:** Prompt engineering has negligible effect on the fundamental moral reasoning stage of state-of-the-art models.
 
-| Step | Detail |
-|---|---|
-| **Stage labelling** | Each response is classified into Kohlberg stages 1–6 |
-| **Per-model stats** | Mean, median, mode, SD, stage distribution % |
-| **Bootstrap CIs** | 95% CIs on mean stage (5,000 resamples) |
-| **Correlation** | Spearman ρ between log₁₀(params) and mean stage |
-| **Hypothesis tests** | Kruskal-Wallis H + Dunn pairwise (Bonferroni correction) |
+### Analysis 3 — Consistency & Stability
+**Research Question:** Do models show stable moral reasoning across divergent dilemmas and prompt contexts?
+- **Methods:** Intraclass Correlation Coefficient (ICC), within-model standard deviation vs. human baseline variance.
+- **Key finding:** Models exhibit hyper-consistent (ICC > 0.90) reasoning profiles, lacking the context-dependent variance seen in human populations.
 
-### Key Findings (234 observations, 13 models)
-
-| Metric | Value |
-|---|---|
-| Spearman ρ | **+0.405** (medium effect) |
-| 95% CI | [−0.17, 0.80] |
-| p-value | 0.170 (not sig. at α = 0.05 with N = 13 models) |
-| R² | 16.4% variance explained |
-| Kruskal-Wallis H | 54.86, **p < 0.001** |
-
-All models concentrated at Stage 5–6; **Qwen3-235B (Think)** is the only model achieving 100% Stage 6.
-
-### Output Figures
-
-| Figure | Description |
-|---|---|
-| `fig1_box_stage_by_model.png` | Stage distribution box plots per model |
-| `fig2_scatter_scale_vs_stage.png` | log-scale vs. mean stage scatter + OLS trend |
-| `fig3_heatmap_stage_distribution.png` | Stage % heat-map across all models |
-| `fig4_bar_mean_stage.png` | Mean stage bar chart with 95% bootstrap CIs |
+### Analysis 4 — Stage Distribution Patterns
+**Research Question:** Do models mirror human stage distributions or exhibit synthetic patterns (e.g., ceiling effects)?
+- **Methods:** Chi-square goodness-of-fit vs. human adult norms, Jensen-Shannon Divergence (JSD), entropy and kurtosis.
+- **Key finding:** Most models diverge significantly from human adults, showing either ceiling-biased (all Stage 5/6) or human-like patterns depending on RLHF methodology.
 
 ---
 
