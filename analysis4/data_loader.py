@@ -52,9 +52,11 @@ def load_all_data() -> pd.DataFrame:
                 else:
                     print(f"  [WARN] Shape mismatch for {stem}, prompt_type NaN")
                     edf["prompt_type"] = np.nan
+            
         else:
             print(f"  [WARN] No data file for {stem}, prompt_type NaN")
             edf["prompt_type"] = np.nan
+            
 
         edf["sample_id"] = edf.groupby(["dilemma_type", "prompt_type"]).cumcount()
 

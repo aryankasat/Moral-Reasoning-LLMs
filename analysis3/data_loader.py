@@ -79,9 +79,11 @@ def load_all_data() -> pd.DataFrame:
                 else:
                     print(f"  [WARN] Shape mismatch for {stem}, prompt_type set to NaN")
                     edf["prompt_type"] = np.nan
+            
         else:
             print(f"  [WARN] No data file for {stem}, prompt_type set to NaN")
             edf["prompt_type"] = np.nan
+            
 
         # ── Assign sample_id within each (dilemma_type, prompt_type) group ─
         # Since the data has 3 repetitions of the same dilemma×prompt_type,

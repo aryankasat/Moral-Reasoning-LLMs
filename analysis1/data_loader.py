@@ -66,7 +66,7 @@ def load_all_data() -> pd.DataFrame:
 
         keep_cols = [
             "model_key", "display_name", "params_B", "log_params", "provider",
-            "kohlberg_stage", "kohlberg_confidence", "dilemma_type", "prompt_type",
+            "kohlberg_stage", "kohlberg_confidence", "dilemma_type", "prompt_type", "response"
         ]
         frames.append(edf[keep_cols])
 

@@ -101,7 +101,7 @@ def load_and_parse_data() -> pd.DataFrame:
 
         keep_cols = [
             "model_key", "display_name", "params_B", "log_params", "provider",
-            "dilemma_type", "kohlberg_stage", "action_endorsed", "action_category"
+            "dilemma_type", "response", "kohlberg_stage", "action_endorsed", "action_category", "response"
         ]
         frames.append(edf[keep_cols])
 
