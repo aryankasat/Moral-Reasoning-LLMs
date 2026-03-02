@@ -1,0 +1,14 @@
+model_key,display_name,params_B,provider,chi2_stat,chi2_df,chi2_p,significant,jsd_adult,jsd_adolescent,jsd_children
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,22.7143,3,4.6e-05,True,0.354404,0.861399,1.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,39.8571,3,0.0,True,0.389591,0.879138,1.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,24.8571,3,1.7e-05,True,0.358981,0.869188,1.0
+qwen3_32b,Qwen3-32B,32,Alibaba,33.4286,3,0.0,True,0.442702,0.854997,1.0
+llama3_70B,Llama 3.3 70B,70,Meta,22.0,3,6.5e-05,True,0.352161,0.863813,1.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,67.7143,3,0.0,True,0.444339,0.892929,1.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,18.4286,3,0.000359,True,0.202299,0.70246,1.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,22.7143,3,4.6e-05,True,0.353989,0.866401,1.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,47.7143,3,0.0,True,0.404871,0.883176,1.0
+gpt-4o,GPT-4o,200,OpenAI,18.4286,3,0.000359,True,0.202299,0.70246,1.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,162.0,3,0.0,True,0.758277,1.0,1.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,24.8571,3,1.7e-05,True,0.358981,0.869188,1.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,39.8571,3,0.0,True,0.389591,0.879138,1.0

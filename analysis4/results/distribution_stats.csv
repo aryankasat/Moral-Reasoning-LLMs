@@ -1,0 +1,14 @@
+model_key,display_name,params_B,log_params,provider,modal_stage,mean_stage,entropy_bits,skewness,kurtosis,ceiling_effect,floor_effect,bimodal,jsd_adult,pattern
+ministral_8b_instruct,Ministral 8B,8,0.9030899869919435,Mistral AI,5,5.167,0.65,1.7889,1.2,True,False,False,0.354404,hyper-principled
+claude_haiku_3_5,Claude 3.5 Haiku,20,1.3010299956639813,Anthropic,5,5.5,1.0,-0.0,-2.0,True,False,False,0.389591,hyper-principled
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,1.4771212547196624,Alibaba,5,5.333,0.9183,0.7071,-1.5,True,False,False,0.358981,hyper-principled
+qwen3_32b,Qwen3-32B,32,1.505149978319906,Alibaba,5,5.0,0.0,-18138.136,369406865.2842,True,False,False,0.442702,hyper-principled
+llama3_70B,Llama 3.3 70B,70,1.845098040014257,Meta,5,5.222,0.7642,1.3363,-0.2143,True,False,False,0.352161,hyper-principled
+qwen3_80b_instruct,Qwen3-80B,80,1.9030899869919435,Alibaba,6,5.667,0.9183,-0.7071,-1.5,True,False,False,0.444339,hyper-principled
+llama4_scout,Llama 4 Scout 109B,109,2.037426497940624,Meta,5,5.222,1.3516,-0.2099,-0.6211,True,False,False,0.202299,hyper-principled
+gpt-oss-120B,GPT-OSS 120B,120,2.0791812460476247,OpenAI,5,5.278,0.8524,0.9923,-1.0154,True,False,False,0.353989,hyper-principled
+claude_sonnet_4_5,Claude Sonnet 4.5,175,2.2430380486862944,Anthropic,6,5.556,0.9911,-0.2236,-1.95,True,False,False,0.404871,hyper-principled
+gpt-4o,GPT-4o,200,2.3010299956639813,OpenAI,5,5.222,1.3516,-0.2099,-0.6211,True,False,False,0.202299,hyper-principled
+qwen3_235b_thinking,Qwen3-235B (Think),235,2.3710678622717363,Alibaba,6,6.0,0.0,-17443.6949,323636360.7633,True,False,False,0.758277,hyper-principled
+deepseek_r1,DeepSeek-R1 671B,671,2.826722520168992,DeepSeek,5,5.333,0.9183,0.7071,-1.5,True,False,False,0.358981,hyper-principled
+deepseek_v3_1,DeepSeek-V3.1 671B,671,2.826722520168992,DeepSeek,5,5.5,1.0,-0.0,-2.0,True,False,False,0.389591,hyper-principled
