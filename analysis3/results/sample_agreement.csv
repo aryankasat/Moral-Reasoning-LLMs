@@ -1,0 +1,14 @@
+model_key,display_name,params_B,log_params,provider,n_cells,exact_agree_rate,majority_agree_rate,mean_mad
+ministral_8b_instruct,Ministral 8B,8,0.9030899869919435,Mistral AI,18,1.0,1.0,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,1.3010299956639813,Anthropic,18,1.0,1.0,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,1.4771212547196624,Alibaba,18,1.0,1.0,0.0
+qwen3_32b,Qwen3-32B,32,1.505149978319906,Alibaba,18,1.0,1.0,0.0
+llama3_70B,Llama 3.3 70B,70,1.845098040014257,Meta,18,1.0,1.0,0.0
+qwen3_80b_instruct,Qwen3-80B,80,1.9030899869919435,Alibaba,18,1.0,1.0,0.0
+llama4_scout,Llama 4 Scout 109B,109,2.037426497940624,Meta,18,1.0,1.0,0.0
+gpt-oss-120B,GPT-OSS 120B,120,2.0791812460476247,OpenAI,18,1.0,1.0,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,2.2430380486862944,Anthropic,18,1.0,1.0,0.0
+gpt-4o,GPT-4o,200,2.3010299956639813,OpenAI,18,1.0,1.0,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,2.3710678622717363,Alibaba,18,1.0,1.0,0.0
+deepseek_r1,DeepSeek-R1 671B,671,2.826722520168992,DeepSeek,18,1.0,1.0,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,2.826722520168992,DeepSeek,18,1.0,1.0,0.0

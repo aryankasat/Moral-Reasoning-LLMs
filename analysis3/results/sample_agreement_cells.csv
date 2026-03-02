@@ -1,0 +1,235 @@
+model_key,display_name,params_B,provider,dilemma_type,prompt_type,n_samples,stage_mode,exact_agree,majority_agree,mad
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,HEINZ_DILEMMA,COT,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,HEINZ_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,HEINZ_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,LIFEBOAT_DILEMMA,COT,1,5,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,LIFEBOAT_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,LIFEBOAT_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,STOLEN_FOOD_DILEMMA,COT,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+claude_haiku_3_5,Claude 3.5 Haiku,20,Anthropic,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,HEINZ_DILEMMA,COT,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,HEINZ_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,LIFEBOAT_DILEMMA,COT,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,TROLLEY_DILLEMA,COT,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,TROLLEY_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+claude_sonnet_4_5,Claude Sonnet 4.5,175,Anthropic,TROLLEY_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,HEINZ_DILEMMA,COT,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,HEINZ_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,LIFEBOAT_DILEMMA,COT,1,6,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+deepseek_r1,DeepSeek-R1 671B,671,DeepSeek,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,HEINZ_DILEMMA,COT,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,HEINZ_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,LIFEBOAT_DILEMMA,COT,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,TROLLEY_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+deepseek_v3_1,DeepSeek-V3.1 671B,671,DeepSeek,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,HEINZ_DILEMMA,COT,1,4,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,HEINZ_DILEMMA,ROLEPLAY,1,4,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,LIFEBOAT_DILEMMA,COT,1,6,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+gpt-4o,GPT-4o,200,OpenAI,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,HEINZ_DILEMMA,COT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,HEINZ_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,LIFEBOAT_DILEMMA,COT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+gpt-oss-120B,GPT-OSS 120B,120,OpenAI,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,HEINZ_DILEMMA,COT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,HEINZ_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,LIFEBOAT_DILEMMA,COT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,LIFEBOAT_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+llama3_70B,Llama 3.3 70B,70,Meta,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,HEINZ_DILEMMA,COT,1,4,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,HEINZ_DILEMMA,ROLEPLAY,1,4,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,LIFEBOAT_DILEMMA,COT,1,6,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+llama4_scout,Llama 4 Scout 109B,109,Meta,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,DOCTOR_DILLEMA,COT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,DOCTOR_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,DOCTOR_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,HEINZ_DILEMMA,COT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,HEINZ_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,LIFEBOAT_DILEMMA,COT,1,6,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+ministral_8b_instruct,Ministral 8B,8,Mistral AI,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,HEINZ_DILEMMA,COT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,HEINZ_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,HEINZ_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,LIFEBOAT_DILEMMA,COT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,PROMISE_DILEMMA,COT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,PROMISE_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,PROMISE_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,STOLEN_FOOD_DILEMMA,COT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,TROLLEY_DILLEMA,COT,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,TROLLEY_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_235b_thinking,Qwen3-235B (Think),235,Alibaba,TROLLEY_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,HEINZ_DILEMMA,COT,1,6,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,HEINZ_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,HEINZ_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,LIFEBOAT_DILEMMA,COT,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,LIFEBOAT_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,LIFEBOAT_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,Alibaba,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,DOCTOR_DILLEMA,COT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,DOCTOR_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,DOCTOR_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,HEINZ_DILEMMA,COT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,HEINZ_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,HEINZ_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,LIFEBOAT_DILEMMA,COT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,LIFEBOAT_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,LIFEBOAT_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,STOLEN_FOOD_DILEMMA,COT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_32b,Qwen3-32B,32,Alibaba,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,DOCTOR_DILLEMA,COT,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,DOCTOR_DILLEMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,DOCTOR_DILLEMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,HEINZ_DILEMMA,COT,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,HEINZ_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,HEINZ_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,LIFEBOAT_DILEMMA,COT,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,LIFEBOAT_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,LIFEBOAT_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,PROMISE_DILEMMA,COT,1,5,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,PROMISE_DILEMMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,PROMISE_DILEMMA,ZERO_SHOT,1,5,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,STOLEN_FOOD_DILEMMA,COT,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,STOLEN_FOOD_DILEMMA,ROLEPLAY,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,STOLEN_FOOD_DILEMMA,ZERO_SHOT,1,6,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,TROLLEY_DILLEMA,COT,1,5,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,TROLLEY_DILLEMA,ROLEPLAY,1,5,1,1,0.0
+qwen3_80b_instruct,Qwen3-80B,80,Alibaba,TROLLEY_DILLEMA,ZERO_SHOT,1,5,1,1,0.0
