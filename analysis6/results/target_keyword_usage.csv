@@ -1,0 +1,27 @@
+display_name,provider,params_B,stage,n_responses,keyword_hit_pct
+Claude 3.5 Haiku,Anthropic,20,5,9,100.0
+Claude 3.5 Haiku,Anthropic,20,6,9,100.0
+Claude Sonnet 4.5,Anthropic,175,5,8,100.0
+Claude Sonnet 4.5,Anthropic,175,6,10,100.0
+DeepSeek-R1 671B,DeepSeek,671,5,12,100.0
+DeepSeek-R1 671B,DeepSeek,671,6,6,100.0
+DeepSeek-V3.1 671B,DeepSeek,671,5,9,100.0
+DeepSeek-V3.1 671B,DeepSeek,671,6,9,100.0
+GPT-4o,OpenAI,200,4,2,100.0
+GPT-4o,OpenAI,200,5,10,100.0
+GPT-4o,OpenAI,200,6,6,100.0
+GPT-OSS 120B,OpenAI,120,5,13,100.0
+GPT-OSS 120B,OpenAI,120,6,5,100.0
+Llama 3.3 70B,Meta,70,5,14,100.0
+Llama 3.3 70B,Meta,70,6,4,100.0
+Llama 4 Scout 109B,Meta,109,4,2,100.0
+Llama 4 Scout 109B,Meta,109,5,10,100.0
+Llama 4 Scout 109B,Meta,109,6,6,100.0
+Ministral 8B,Mistral AI,8,5,15,100.0
+Ministral 8B,Mistral AI,8,6,3,100.0
+Qwen3-235B (Think),Alibaba,235,6,18,100.0
+Qwen3-30B Coder,Alibaba,30,5,12,100.0
+Qwen3-30B Coder,Alibaba,30,6,6,100.0
+Qwen3-32B,Alibaba,32,5,18,100.0
+Qwen3-80B,Alibaba,80,5,6,100.0
+Qwen3-80B,Alibaba,80,6,12,100.0
