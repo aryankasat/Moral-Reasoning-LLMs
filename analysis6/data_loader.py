@@ -55,8 +55,8 @@ def load_and_prepare_text() -> pd.DataFrame:
                 
         edf["indicators_text"] = edf["key_indicators"].apply(_parse_indicators)
         
-        # Combine reasoning and indicators
-        edf["combined_text"] = edf["kohlberg_reasoning"].fillna("") + " " + edf["indicators_text"].fillna("")
+        # User request: Use the raw model response directly instead of the self-reported reasoning
+        edf["combined_text"] = edf["response"].fillna("")
         edf["cleaned_text"] = edf["combined_text"].apply(clean_text)
         
         # Vocabulary richness proxy: Count unique words mapping to length > 3 and not stopwords
