@@ -199,7 +199,15 @@ def plot_linguistic_pca(pca_df: pd.DataFrame, var_explained: np.ndarray, out_dir
         ax.scatter(row["pca1"], row["pca2"], color=color, s=size, alpha=0.8, edgecolors="white", linewidth=0.5)
         texts.append(ax.text(row["pca1"], row["pca2"], row["display_name"], fontsize=7, ha='center', va='center'))
         
-    adjust_text(texts, arrowprops=dict(arrowstyle="-", color='gray', lw=0.5))
+    adjust_text(
+        texts,
+        arrowprops=dict(arrowstyle="-", color='gray', lw=0.5),
+        force_text=(0.5, 1.0),
+        force_points=(1.5, 1.5),
+        expand_points=(2, 2),
+        expand_text=(2, 2),
+        max_iterations=2000
+    )
     
     ax.set_xlabel(f"Linguistic PC1 ({var_explained[0]*100:.1f}%)", fontsize=10)
     ax.set_ylabel(f"Linguistic PC2 ({var_explained[1]*100:.1f}%)", fontsize=10)
