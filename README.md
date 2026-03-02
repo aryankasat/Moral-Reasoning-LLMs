@@ -43,6 +43,8 @@ Moral-Reasoning-LLMs/
 │
 ├── analysis4/                   # Analysis 4: Stage Distribution Patterns
 │
+├── analysis5/                   # Analysis 5: Action-Reasoning Consistency
+│
 
 ├── requirements.txt
 └── README.md
@@ -110,6 +112,11 @@ The project is divided into four main analysis modules, each answering a specifi
 **Research Question:** Do models mirror human stage distributions or exhibit synthetic patterns (e.g., ceiling effects)?
 - **Methods:** Chi-square goodness-of-fit vs. human adult norms, Jensen-Shannon Divergence (JSD), entropy and kurtosis.
 - **Key finding:** Most models diverge significantly from human adults, showing either ceiling-biased (all Stage 5/6) or human-like patterns depending on RLHF methodology.
+
+### Analysis 5 — Action-Reasoning Consistency
+**Research Question:** Do models' moral reasoning stages (Kohlberg) align coherently with the ethical actions they endorse?
+- **Methods:** Rule-following vs Principled rule-breaking action extraction, Stage × Action cross-tabulations, Chi-Square Independence.
+- **Key finding:** Strong statistical dependency between reasoning stage and endorsed action, though some models display "moral decoupling", adopting post-conventional actions with conventional reasoning.
 
 ---
 
