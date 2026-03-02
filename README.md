@@ -45,6 +45,8 @@ Moral-Reasoning-LLMs/
 │
 ├── analysis5/                   # Analysis 5: Action-Reasoning Consistency
 │
+├── analysis6/                   # Analysis 6: Reasoning Pattern Analysis
+│
 
 ├── requirements.txt
 └── README.md
@@ -91,7 +93,7 @@ python main.py
 
 ## Analysis Modules
 
-The project is divided into five main analysis modules, each answering a specific research question about how LLMs reason about morality:
+The project is divided into six main analysis modules, each answering a specific research question about how LLMs reason about morality:
 
 ### Analysis 1 — Scale vs. Moral Reasoning
 
@@ -127,6 +129,13 @@ The project is divided into five main analysis modules, each answering a specifi
 
 - **Methods:** Rule-following vs Principled rule-breaking action extraction, Stage × Action cross-tabulations, Chi-Square Independence.
 - **Key finding:** Strong statistical dependency between reasoning stage and endorsed action, though some models display "moral decoupling", adopting post-conventional actions with conventional reasoning.
+
+### Analysis 6 — Reasoning Pattern Analysis
+
+**Research Question:** What qualitative reasoning patterns characterize each model's moral reasoning?
+
+- **Methods:** TF-IDF keyword extraction, Dimensionality reduction (PCA), Vocabulary richness mapping, Qualitative Centroid exemplars.
+- **Key finding:** Model families share distinct linguistic "voices" and aligned models tend to manifest significantly richer moral vocabulary independent of parameter scale.
 
 ---
 
