@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from wordcloud import WordCloud
+from adjustText import adjust_text
 
 from config import (
     STAGES, STAGE_COLORS, PROVIDER_COLORS, 
@@ -190,13 +191,16 @@ def plot_linguistic_pca(pca_df: pd.DataFrame, var_explained: np.ndarray, out_dir
     """2D Scatter of the entire model corpus TF-IDF PCA projection."""
     fig, ax = plt.subplots(figsize=(120 * MM, 100 * MM))
     
+    texts = []
     for _, row in pca_df.iterrows():
         color = PROVIDER_COLORS[row["provider"]]
         size = np.log10(row["params_B"]) * 50 # scale dot size
         
         ax.scatter(row["pca1"], row["pca2"], color=color, s=size, alpha=0.8, edgecolors="white", linewidth=0.5)
-        ax.text(row["pca1"], row["pca2"] + 0.02, row["display_name"], fontsize=7, ha='center', va='bottom')
+        texts.append(ax.text(row["pca1"], row["pca2"], row["display_name"], fontsize=7, ha='center', va='center'))
         
+    adjust_text(texts, arrowprops=dict(arrowstyle="-", color='gray', lw=0.5))
+    
     ax.set_xlabel(f"Linguistic PC1 ({var_explained[0]*100:.1f}%)", fontsize=10)
     ax.set_ylabel(f"Linguistic PC2 ({var_explained[1]*100:.1f}%)", fontsize=10)
     
