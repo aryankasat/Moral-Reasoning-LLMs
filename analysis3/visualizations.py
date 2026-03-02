@@ -790,3 +790,151 @@ def plot_3d_surface(df: pd.DataFrame, out_dir: Path) -> None:
     )
     fig.tight_layout()
     _save(fig, out_dir, "fig6_3d_surface.png")
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# Figure 5 (initial) — Clean scatter: Model Scale vs. ICC
+# ────────────────────────────────────────────────────────────────────────────
+
+def plot_scale_vs_icc(
+    icc_df: pd.DataFrame,
+    out_dir: Path,
+) -> None:
+    """
+    Scatter plot: X = log10(params_B), Y = ICC(2,1).
+    Colour = provider. Labels auto-repositioned via adjustText.
+
+    Overlap fixes applied:
+      - Models at ICC ≈ 1.0 are vertically jittered using
+        evenly-spaced offsets so labels stop piling up.
+      - adjustText uses strong force + xy movement only on texts.
+      - Legend pinned to lower-right to avoid the dense top cluster.
+      - Spearman stat box goes to lower-left.
+      - Wider canvas (210 mm) and extra top/right margin give labels room.
+    """
+    from adjustText import adjust_text
+    from scipy.stats import spearmanr
+
+    df = icc_df.dropna(subset=["icc"]).copy()
+    x_raw = df["log_params"].values.astype(float)
+    y_raw = df["icc"].values.astype(float)
+    colors = [_pc(p) for p in df["provider"]]
+
+    # ── Jitter models stacked at ICC ≈ 1.0 ──────────────────────────────────
+    y_plot = y_raw.copy()
+    at_top  = y_plot >= 0.995
+    n_top   = int(at_top.sum())
+    if n_top > 1:
+        offsets = np.linspace(-0.035 * (n_top - 1) / 2,
+                               0.035 * (n_top - 1) / 2, n_top)
+        y_plot[at_top] = 1.0 + offsets
+
+    # ── Canvas ───────────────────────────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(210 * MM, 145 * MM))
+
+    # Quadrant shading
+    x_mid = np.median(x_raw)
+    ax.axhspan(0.75, 1.14,  color="#e8f5e9", alpha=0.40, zorder=0)
+    ax.axhspan(-0.18, 0.75, color="#fce4ec", alpha=0.35, zorder=0)
+    ax.axvline(x_mid, color="#dddddd", lw=0.7, ls="--", zorder=1)
+    ax.axhline(0.75,  color="#dddddd", lw=0.7, ls="--", zorder=1)
+
+    # ICC interpretation thresholds (left-anchored labels)
+    for thresh, lbl in [(0.50, "Poor | Moderate"), (0.90, "Good | Excellent")]:
+        ax.axhline(thresh, color="#bbbbbb", lw=0.7, ls=":", zorder=2)
+        ax.text(x_raw.min() - 0.12, thresh + 0.012, lbl,
+                fontsize=6.5, color="#aaaaaa", va="bottom", ha="left")
+
+    # Scatter
+    ax.scatter(x_raw, y_plot, c=colors, s=90, alpha=0.90,
+               edgecolors="#333333", linewidths=0.6, zorder=5)
+
+    # OLS trend on raw (non-jittered) values
+    finite = np.isfinite(x_raw) & np.isfinite(y_raw)
+    if finite.sum() >= 2:
+        m, b = np.polyfit(x_raw[finite], y_raw[finite], 1)
+        xfit = np.linspace(x_raw.min() - 0.15, x_raw.max() + 0.15, 300)
+        ax.plot(xfit, m * xfit + b, color="#666666", lw=1.1,
+                ls="--", zorder=3, label="OLS trend")
+
+    # ── Labels (adjustText) ──────────────────────────────────────────────────
+    texts = []
+    for i, (_, row) in enumerate(df.iterrows()):
+        t = ax.text(
+            float(x_raw[i]), float(y_plot[i]),
+            row["display_name"],
+            fontsize=7.0, color="#222222",
+            ha="center", va="bottom",
+        )
+        texts.append(t)
+
+    adjust_text(
+        texts,
+        x=x_raw, y=y_plot,
+        ax=ax,
+        arrowprops=dict(arrowstyle="-", color="#aaaaaa", lw=0.5, shrinkA=3),
+        expand=(2.5, 3.0),
+        force_text=(1.4, 1.8),
+        force_points=(0.9, 1.2),
+        force_static=(0.6, 0.8),
+        min_arrow_len=4,
+        max_move=6.0,
+        only_move={"points": "y", "texts": "xy", "objects": "xy"},
+    )
+
+    # ── Spearman annotation — bottom-left, clear of top label cluster ────────
+    if finite.sum() >= 3:
+        rho, p_val = spearmanr(x_raw[finite], y_raw[finite])
+        sig = "n.s." if p_val >= 0.05 else f"p = {p_val:.3f}"
+        ax.text(
+            0.03, 0.05,
+            rf"Spearman $\rho$ = {rho:.3f}" + f"\n{sig}",
+            transform=ax.transAxes, fontsize=8,
+            va="bottom", ha="left",
+            bbox=dict(boxstyle="round,pad=0.4", facecolor="white",
+                      edgecolor="#cccccc", lw=0.6, alpha=0.95),
+            zorder=10,
+        )
+
+    # ── Provider legend — lower-right, away from label cluster ───────────────
+    prov_handles = _prov_handles()
+    # Add OLS line handle
+    prov_handles.append(
+        mlines.Line2D([], [], color="#666666", lw=1.1, ls="--", label="OLS trend")
+    )
+    ax.legend(
+        handles=prov_handles,
+        title="Provider", title_fontsize=8,
+        loc="lower right",
+        fontsize=8, framealpha=0.95, edgecolor="#cccccc",
+        borderpad=0.6,
+    )
+
+    # ── Axes ─────────────────────────────────────────────────────────────────
+    nice_P = [8, 10, 30, 100, 300, 700]
+    nice_L = [np.log10(v) for v in nice_P]
+    nice_N = ["8B", "10B", "30B", "100B", "300B", "700B"]
+    x_lo   = x_raw.min() - 0.18
+    x_hi   = x_raw.max() + 0.28
+    tick_l = [t for t in nice_L if x_lo <= t <= x_hi]
+    tick_n = [nice_N[nice_L.index(t)] for t in tick_l]
+    ax.set_xticks(tick_l)
+    ax.set_xticklabels(tick_n, fontsize=8.5)
+    ax.set_xlim(x_lo, x_hi)
+    ax.set_ylim(-0.18, 1.14)
+    ax.set_yticks(np.arange(0, 1.1, 0.2))
+    ax.set_yticklabels([f"{v:.1f}" for v in np.arange(0, 1.1, 0.2)], fontsize=8.5)
+    ax.set_xlabel("Model Scale  (approximate parameter count, log scale)",
+                  labelpad=6, fontsize=9.5)
+    ax.set_ylabel("ICC(2,1)  —  Cross-Dilemma Consistency",
+                  labelpad=6, fontsize=9.5)
+    ax.set_title(
+        "Model Scale vs. Cross-Dilemma Consistency  (ICC(2,1))\n"
+        "Colour = provider  |  Dashed = OLS trend",
+        fontsize=10, pad=10, fontweight="bold",
+    )
+
+    fig.tight_layout()
+    fig.subplots_adjust(top=0.88, right=0.97)
+    _save(fig, out_dir, "fig5_scale_vs_icc.png")
+
