@@ -1,159 +1,254 @@
-# Moral-Reasoning-LLMs
+# 🧠 Moral-Reasoning-LLMs
 
-Research repository for evaluating and comparing large language models' (LLMs) moral reasoning using Kohlberg's stages of moral development. The project covers end-to-end pipelines: prompt generation → LLM inference → Kohlberg-stage evaluation → statistical analysis.
+> **Can AI think morally — and does bigger mean wiser?**
 
----
+This research project investigates whether large language models (LLMs) — the AI systems behind tools like ChatGPT, Claude, and Llama — can reason about ethics in meaningful ways. We use a well-known framework from psychology, **Kohlberg's Stages of Moral Development**, to score how sophisticated an AI's moral reasoning is.
 
-## Overview
-
-- **Research question:** Do larger LLMs exhibit higher stages of moral reasoning?
-- **Evaluation framework:** Kohlberg's six stages of moral development, applied to structured moral dilemmas.
-- **Models covered:** Claude 3.5 Haiku, Claude Sonnet 4.5, GPT-4o, GPT-OSS 120B, Llama 3.3 70B, Llama 4 Scout, Mistral Tiny, Ministral 8B, Qwen3 (32B / 80B / 235B), DeepSeek-R1, DeepSeek-V3.1.
+**Short answer from our findings:** Larger models tend to reason at higher moral stages, but the relationship is nuanced — and AI reasoning is far more rigid than human reasoning.
 
 ---
 
-## Repository Structure
+## 📌 What Is This Project?
+
+We asked 14 different AI models to respond to classic moral dilemmas — stories with no easy right or wrong answer, like:
+
+- *The Trolley Problem* — Pull a lever to save 5 people but kill 1?
+- *Heinz's Dilemma* — Should a husband steal medicine to save his dying wife?
+- *The Lifeboat* — Who should be sacrificed when a boat is too full?
+
+Each model was given these dilemmas under **three different question styles** (prompt types):
+- **Zero-Shot** — Just answer the question.
+- **Chain-of-Thought** — Think step by step before answering.
+- **Roleplay** — Answer as a moral philosopher.
+
+An AI evaluator then scored each response on Kohlberg's 1–6 scale, where higher scores indicate more sophisticated ethical reasoning (e.g., Stage 6 = reasoning from universal moral principles).
+
+---
+
+## 🤖 Models Tested
+
+| Model Family | Models |
+|---|---|
+| **Anthropic** | Claude 3.5 Haiku, Claude Sonnet 4.5 |
+| **OpenAI** | GPT-4o, GPT-OSS 120B |
+| **Meta** | Llama 3.3 70B, Llama 4 Scout |
+| **Mistral AI** | Mistral Tiny, Ministral 8B |
+| **Alibaba** | Qwen3 32B, Qwen3 80B, Qwen3 235B |
+| **DeepSeek** | DeepSeek-R1, DeepSeek-V3.1 |
+| **Qwen** | Qwen3 30B Coder Instruct |
+
+---
+
+## 🗂️ How the Repo Is Organized
 
 ```
 Moral-Reasoning-LLMs/
 │
-├── LLM calls/                   # Model-specific inference wrappers
-│   ├── groq_llm.py
-│   ├── mistral_llm.py
-│   ├── pythia_llm.py
-│   └── puter_llm.py
+├── LLM calls/              ← Scripts that send dilemmas to each AI model
+│   ├── prompt_hub.py       ← All 6 moral dilemmas + 3 prompt styles defined here
+│   ├── groq_llm.py         ← Calls models via Groq API (Llama, Mistral, etc.)
+│   ├── mistral_llm.py      ← Calls Mistral models
+│   ├── puter_llm.py        ← Calls models via Puter (browser-based)
+│   └── pythia_llm.py       ← Calls open-source Pythia models
 │
-├── data/                        # Raw LLM responses (one .xlsx per model)
-│   └── <model_name>.xlsx        # Columns: model_name, dilemma_type, prompt_type,
-│                                #   timestamp, response, response_length,
-│                                #   inference_time, api_source, temperature
+├── data/                   ← Raw AI responses (one file per model)
+│   └── <model_name>.xlsx   ← Columns: dilemma type, prompt style, response, timing…
 │
-├── evaluation_data/             # Kohlberg stage labels (one .xlsx per model)
-│   ├── <model_name>_evaluation.xlsx   # Columns: analysis_timestamp, dilemma_type,
-│   │                                  #   response, kohlberg_stage, kohlberg_confidence,
-│   │                                  #   kohlberg_reasoning, secondary_stage, …
-│   ├── puter_evaluation_llm.py  # Auto-evaluation script
-│   └── update_excel.py          # Helper to patch evaluation files
+├── evaluation_data/        ← AI-scored Kohlberg ratings of each response
+│   ├── <model>_evaluation.xlsx  ← Columns: Kohlberg stage (1–6), confidence, reasoning…
+│   ├── puter_evaluation_llm.py  ← Script that runs the Kohlberg scoring
+│   └── update_excel.py          ← Helper to fix/patch evaluation files
 │
-├── analysis1/                   # Analysis 1: Scale vs. Moral Reasoning Stage
+├── analysis1/              ← Does model size predict moral reasoning? (Spearman correlation)
+├── analysis2/              ← Does prompt style/engineering change moral reasoning?
+├── analysis3/              ← How consistent/stable is each model across dilemmas?
+├── analysis4/              ← Do AI stage distributions look like humans or not?
+├── analysis5/              ← Do AI actions match their stated moral reasoning?
+├── analysis6/              ← What language patterns reveal about moral thinking?
 │
-├── analysis2/                   # Analysis 2: Prompt Engineering Impact
-│
-├── analysis3/                   # Analysis 3: Consistency & Stability
-│
-├── analysis4/                   # Analysis 4: Stage Distribution Patterns
-│
-├── analysis5/                   # Analysis 5: Action-Reasoning Consistency
-│
-├── analysis6/                   # Analysis 6: Reasoning Pattern Analysis
-│
-
-├── requirements.txt
-└── README.md
+├── requirements.txt        ← Python packages needed to run the project
+└── README.md               ← You are here
 ```
+
+Each `analysis*/` folder contains the same consistent structure:
+
+| File | Purpose |
+|---|---|
+| `main.py` | Run this to execute the analysis |
+| `config.py` | Settings: model list, parameter counts, etc. |
+| `data_loader.py` | Loads and cleans data from `evaluation_data/` |
+| `stat_analysis.py` | Runs the statistical tests |
+| `visualizations.py` | Generates charts and graphs |
+| `reporting.py` | Formats the final summary |
+| `results/` | Output folder: charts (`.png`) and tables (`.csv`) |
 
 ---
 
-## Quick Start
+## 🔬 The Six Research Questions — Plain English
 
-### 1. Set up environment
+### 📊 Analysis 1 — Do Bigger AI Models Reason More Morally?
+*Does the number of parameters (model "size") predict a higher Kohlberg stage?*
+
+We ran a statistical correlation between model size and average moral reasoning score. We found a moderate positive link — bigger models generally score higher — but with diminishing returns at the top end.
+
+📂 `analysis1/` → `results/fig2_scatter_scale_vs_stage.png`
+
+---
+
+### 💬 Analysis 2 — Does Prompting Style Matter?
+*Does asking the AI to "think step by step" or "roleplay as a philosopher" change how it reasons morally?*
+
+Using repeated-measures statistical tests (Friedman + Wilcoxon), we found that prompt engineering has **negligible effect** on the fundamental moral stage of modern frontier models. Their moral reasoning is baked in, not prompted out.
+
+📂 `analysis2/` → `results/`
+
+---
+
+### 🔁 Analysis 3 — Are AI Models Consistent or All Over the Place?
+*Does the same model give different moral reasoning for different dilemmas?*
+
+Using Intraclass Correlation Coefficient (ICC), we found models are **hyper-consistent** (ICC > 0.90) — almost robotically so. Human moral reasoning varies by context; AI moral reasoning largely doesn't.
+
+📂 `analysis3/` → `results/`
+
+---
+
+### 📉 Analysis 4 — Do AI Models Reason Like Humans?
+*Do the distribution of moral stages across responses resemble how human adults are distributed?*
+
+We compared AI stage distributions to human developmental norms. Most models either cluster at Stage 5/6 (ceiling effect) or show patterns very different from human populations. A few RLHF-tuned models converge on human-like patterns.
+
+📂 `analysis4/` → `results/`
+
+---
+
+### ⚖️ Analysis 5 — Do AI Models Practice What They Preach?
+*When a model reasons at Stage 5 (social contract thinking), does it actually choose a principled action?*
+
+We extracted the action recommended by each model and cross-tabulated it against the reasoning stage. We found strong statistical alignment — but some models show "moral decoupling": they use high-stage words while making low-stage choices.
+
+📂 `analysis5/` → `results/`
+
+---
+
+### 🔤 Analysis 6 — What Do the Words Reveal?
+*Are there patterns in the language and vocabulary that different models use when reasoning morally?*
+
+Using TF-IDF keyword extraction and PCA dimensionality reduction, we found that model families share distinct "linguistic voices." Aligned/RLHF models demonstrate richer moral vocabulary regardless of model size.
+
+📂 `analysis6/` → `results/`
+
+---
+
+## 🚀 How to Run This Project
+
+> You'll need Python 3.9+. A basic familiarity with the terminal is helpful.
+
+### Step 1 — Set up the environment
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate          # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
-pip install scikit-posthocs   # required for Dunn post-hoc test
+pip install scikit-posthocs        # Needed for Dunn post-hoc tests
 ```
 
-### 2. Generate LLM responses
+### Step 2 — Add your API keys
+
+Create a `.env` file in the root folder and paste in your keys:
+
+```
+GROQ_API_KEY=your_key_here
+MISTRAL_API_KEY=your_key_here
+OPENAI_API_KEY=your_key_here
+ANTHROPIC_API_KEY=your_key_here
+```
+
+> ⚠️ The `data/` and `evaluation_data/` folders already contain pre-collected responses and Kohlberg scores. You only need API keys if you want to collect **new** model responses.
+
+### Step 3 — (Optional) Collect new LLM responses
 
 ```bash
 python "LLM calls/puter_llm.py"
-# Outputs saved to data/<model_name>.xlsx
+# ↳ Saves responses to data/<model_name>.xlsx
 ```
 
-### 3. Run Kohlberg-stage evaluation
+### Step 4 — (Optional) Run Kohlberg-stage evaluation
 
 ```bash
 python evaluation_data/puter_evaluation_llm.py
-# Outputs saved to evaluation_data/<model_name>_evaluation.xlsx
+# ↳ Saves scored data to evaluation_data/<model_name>_evaluation.xlsx
 ```
 
-### 4. Run the Statistical Analyses
+### Step 5 — Run any analysis module
 
-Each analysis module operates independently. Change into the desired directory and run its `main.py` entry point.
+All six analyses are **independent** — you can run any one without running the others.
 
 ```bash
 cd analysis1/
 python main.py
-# Outputs written to analysis1/results/
+# ↳ Charts and tables appear in analysis1/results/
 ```
+
+Replace `analysis1` with `analysis2` through `analysis6` for the other modules.
 
 ---
 
-## Analysis Modules
+## 📁 Data Files at a Glance
 
-The project is divided into six main analysis modules, each answering a specific research question about how LLMs reason about morality:
+### `data/` — Raw model responses
 
-### Analysis 1 — Scale vs. Moral Reasoning
+Each `.xlsx` file stores everything captured during an LLM call:
 
-**Research Question:** Do larger models show higher Kohlberg moral reasoning stages?
+| Column | Description |
+|---|---|
+| `model_name` | Which AI model responded |
+| `dilemma_type` | Which moral dilemma (e.g., Heinz, Trolley, Lifeboat) |
+| `prompt_type` | Zero-Shot / CoT / Roleplay |
+| `response` | The full text the model generated |
+| `response_length` | Word count |
+| `inference_time` | How long the model took to respond |
+| `api_source` | Which API was used |
+| `temperature` | Randomness setting (usually 0 for determinism) |
 
-- **Methods:** Spearman correlation ($\rho$) between parameter count and mean stage, bootstrap confidence intervals, Kruskal-Wallis tests.
-- **Key finding:** Moderate positive correlation, but diminishing returns for the largest models.
+### `evaluation_data/` — Kohlberg stage scores
 
-### Analysis 2 — Prompt Engineering Impact
+Each `*_evaluation.xlsx` stores the automated scoring of every response:
 
-**Research Question:** Does Chain-of-Thought (CoT) or Roleplay prompting improve moral reasoning compared to Zero-Shot out-of-the-box performance?
-
-- **Methods:** Repeated-measures ANOVA (Friedman test), Wilcoxon signed-rank post-hoc, magnitude of change analysis.
-- **Key finding:** Prompt engineering has negligible effect on the fundamental moral reasoning stage of state-of-the-art models.
-
-### Analysis 3 — Consistency & Stability
-
-**Research Question:** Do models show stable moral reasoning across divergent dilemmas and prompt contexts?
-
-- **Methods:** Intraclass Correlation Coefficient (ICC), within-model standard deviation vs. human baseline variance.
-- **Key finding:** Models exhibit hyper-consistent (ICC > 0.90) reasoning profiles, lacking the context-dependent variance seen in human populations.
-
-### Analysis 4 — Stage Distribution Patterns
-
-**Research Question:** Do models mirror human stage distributions or exhibit synthetic patterns (e.g., ceiling effects)?
-
-- **Methods:** Chi-square goodness-of-fit vs. human adult norms, Jensen-Shannon Divergence (JSD), entropy and kurtosis.
-- **Key finding:** Most models diverge significantly from human adults, showing either ceiling-biased (all Stage 5/6) or human-like patterns depending on RLHF methodology.
-
-### Analysis 5 — Action-Reasoning Consistency
-
-**Research Question:** Do models' moral reasoning stages (Kohlberg) align coherently with the ethical actions they endorse?
-
-- **Methods:** Rule-following vs Principled rule-breaking action extraction, Stage × Action cross-tabulations, Chi-Square Independence.
-- **Key finding:** Strong statistical dependency between reasoning stage and endorsed action, though some models display "moral decoupling", adopting post-conventional actions with conventional reasoning.
-
-### Analysis 6 — Reasoning Pattern Analysis
-
-**Research Question:** What qualitative reasoning patterns characterize each model's moral reasoning?
-
-- **Methods:** TF-IDF keyword extraction, Dimensionality reduction (PCA), Vocabulary richness mapping, Qualitative Centroid exemplars.
-- **Key finding:** Model families share distinct linguistic "voices" and aligned models tend to manifest significantly richer moral vocabulary independent of parameter scale.
+| Column | Description |
+|---|---|
+| `kohlberg_stage` | Stage 1–6 assigned by the evaluator |
+| `kohlberg_confidence` | How confident the evaluator was |
+| `kohlberg_reasoning` | Explanation for the assigned stage |
+| `secondary_stage` | Second-best stage if borderline |
 
 ---
 
-## Environment Variables
+## 🧩 What Is Kohlberg's Framework?
 
-Add API keys to your `.env` file before running model wrappers:
+Lawrence Kohlberg proposed that humans develop moral reasoning in stages. Here's a simplified breakdown:
 
-```
-GROQ_API_KEY=...
-MISTRAL_API_KEY=...
-OPENAI_API_KEY=...
-ANTHROPIC_API_KEY=...
-```
+| Stage | Level | Core Idea |
+|---|---|---|
+| 1 | Pre-conventional | Avoid punishment |
+| 2 | Pre-conventional | Do what benefits you |
+| 3 | Conventional | Be a good person / fit in |
+| 4 | Conventional | Follow rules and laws |
+| 5 | Post-conventional | Respect social contracts and rights |
+| 6 | Post-conventional | Follow universal ethical principles |
+
+Most adults reason at Stages 3–5. This project measures which stages AI models tend to occupy.
 
 ---
 
-## Notes
+## ⚙️ Technical Notes
 
-- `puter_session/` and `puter_user_data/` are local browser-session cache folders — excluded from commits via `.gitignore`.
-- Parameter counts in `analysis1/config.py → MODEL_META` are estimates for closed models (Claude, GPT-4o). Update them if you have more precise figures; the Spearman correlation is sensitive to these values.
-- All analysis outputs in `analysis1/results/` are reproducible by running `main.py` from scratch.
+- `puter_session/` and `puter_user_data/` are local browser-cache folders used by the Puter-based model runner — they are already excluded from Git via `.gitignore`.
+- Parameter counts in `analysis1/config.py` (`MODEL_META`) are **estimates** for closed-source models (Claude, GPT-4o). The Spearman correlation is sensitive to these, so update them if you have better numbers.
+- All analysis outputs in `results/` are fully reproducible by running `main.py` from scratch — no manual steps needed.
+
+---
+
+## 📄 License
+
+[MIT License](LICENSE) — feel free to use, cite, or build on this research.
