@@ -1,0 +1,46 @@
+{
+  "changepoints": [
+    3,
+    5,
+    9,
+    11
+  ],
+  "changepoint_ci_lower": 2.0,
+  "changepoint_ci_upper": 6.0,
+  "primary_changepoint_idx": 3,
+  "segmented_regression": {
+    "slope_pre": 0.383463289109991,
+    "slope_post": 0.26705127864776146,
+    "intercept_pre": 4.862793042369541,
+    "intercept_post": 4.814128839411189,
+    "f_stat": 0.3037489266634598,
+    "p_value": 0.7453237493771909,
+    "r2_linear": 0.12770367584862274,
+    "r2_segmented": 0.1828604036956576,
+    "is_better": false
+  },
+  "emergence_threshold": {
+    "emergence_params_B": 8,
+    "emergence_model": "Ministral 8B",
+    "emergence_pct": 1.0,
+    "threshold": 0.2
+  },
+  "scenario": "Scenario A \u2014 Gradual Emergence",
+  "cross_scale_correlation": {
+    "spearman_rho": 0.40500280392642546,
+    "spearman_pval": 0.16980938630609413,
+    "significant": false,
+    "interpretation": "Larger models tend toward higher moral reasoning stages."
+  },
+  "effect_size": 1.0,
+  "log_emergence_params": 0.9030899869919435,
+  "n_models": 13,
+  "params_range": [
+    8,
+    671
+  ],
+  "stage_range": [
+    5.0,
+    6.0
+  ]
+}

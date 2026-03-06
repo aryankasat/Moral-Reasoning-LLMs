@@ -1,0 +1,18 @@
+metric,value,unit,description
+changepoint_indices,"[3, 5, 9, 11]",index,Indices in model_df (sorted by params) where changepoints were detected
+changepoint_params_B,"[np.float64(32.0), np.float64(80.0), np.float64(200.0), np.float64(671.0)]",B parameters,Approximate parameter count at each detected changepoint
+changepoint_ci_lower,2.0,index,Bootstrap 95% CI lower bound on primary changepoint index
+changepoint_ci_upper,6.0,index,Bootstrap 95% CI upper bound on primary changepoint index
+slope_pre_changepoint,0.38346,Δ stage / Δ log10(params),Regression slope before primary changepoint
+slope_post_changepoint,0.26705,Δ stage / Δ log10(params),Regression slope after primary changepoint
+f_stat,0.3037,F,F-statistic for segmented vs linear model comparison
+f_test_p_value,0.745324,p,p-value for F-test (segmented vs linear); <0.05 = segmented significantly better
+r2_linear,0.1277,R²,R² for simple linear regression
+r2_segmented,0.1829,R²,R² for segmented (two-piece) regression
+emergence_params_B,8,B parameters,Smallest model where post_conv_pct >= 20%
+emergence_model,Ministral 8B,,Name of first model meeting emergence threshold
+log_emergence_params,0.9031,log10(B params),Log-scale efficiency metric for emergence
+effect_size_stage_range,1.0,stages,Range of mean_stage across all models (max - min)
+spearman_rho,0.405,ρ,Spearman correlation: log(params) × mean_stage
+spearman_p_value,0.169809,p,p-value for Spearman correlation
+scenario,Scenario A — Gradual Emergence,,Classified emergence pattern
