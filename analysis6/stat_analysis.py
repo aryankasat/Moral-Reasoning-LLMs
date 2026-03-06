@@ -13,11 +13,14 @@ def extract_distinctive_terms(texts: list[str], n_terms: int = 10) -> list[tuple
     """Runs TF-IDF over a small corpus and extracts top terms by mean TF-IDF weight."""
     if not texts or len(texts) == 0:
         return []
-        
+
+    # Use min_df=1 for small corpora (<=10 docs) to avoid wiping out all vocabulary
+    adaptive_min_df = 1 if len(texts) <= 10 else 2
+
     vectorizer = TfidfVectorizer(
         stop_words=CUSTOM_STOP_WORDS,
-        max_df=0.90,     # ignore terms in >90% docs
-        min_df=2,        # ignore terms in <2 docs
+        max_df=0.90,              # ignore terms in >90% docs
+        min_df=adaptive_min_df,   # adaptive: 1 for small corpora, 2 otherwise
         ngram_range=(1, 2)
     )
     
@@ -40,10 +43,13 @@ def analyze_stage_vocabulary(df: pd.DataFrame) -> dict[int, list[tuple[str, floa
     results = {}
     for stage in STAGES:
         sub = df[df["kohlberg_stage"] == stage]
-        if len(sub) > 5:
+        if len(sub) > 1:  # lowered from >5 so sparse stages (e.g. Stage 4) are included
             results[stage] = extract_distinctive_terms(sub["cleaned_text"].tolist(), n_terms=20)
+            if not results[stage]:
+                print(f"  [WARN] Stage {stage}: {len(sub)} rows found but TF-IDF returned no terms.")
         else:
             results[stage] = []
+            print(f"  [WARN] Stage {stage}: only {len(sub)} row(s) — skipping word cloud.")
     return results
     
 def analyze_model_distinctive_terms(df: pd.DataFrame) -> pd.DataFrame:
