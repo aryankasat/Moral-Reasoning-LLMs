@@ -1,0 +1,7 @@
+Test,Statistic,p_value,Significant,Interpretation
+Spearman Rank Correlation (Scale vs Mean Stage),,0.1641148960038963,False,No significant monotonic trend between scale and moral stage
+Friedman Test (Repeated Measures by Dilemma),28.157853196527252,0.005245251050212737,True,Stage scores differ significantly across model scales (reject H₀)
+Kruskal-Wallis (Scale Group),1.015966386554617,0.6017078844146835,False,No significant entropy difference across scale_group groups
+Kruskal-Wallis (Training Type),1.220168067226892,0.543305211256025,False,No significant entropy difference across training_type groups
+Chi-square (Transition Sequence),459.932184633048,1.3396615171072172e-100,True,Transition distribution is non-uniform (sequential transitions may dominate)
+Binomial Test (Regression Frequency),,0.8998628257887518,False,Cannot confirm regressions are rare
