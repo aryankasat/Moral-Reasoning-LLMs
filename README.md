@@ -78,6 +78,8 @@ Moral-Reasoning-LLMs/
 ├── analysis6/              ← Linguistic Patterns (TF-IDF + PCA)
 ├── analysis7/              ← [Extended analysis — response quality metrics]
 ├── analysis8/              ← Scale vs. Training Decomposition (Two-way ANOVA)
+├── analysis9/              ← LLM Capability Drivers (Correlation & Multi-regression)
+├── analysis10/             ← Stage Transition Dynamics (Growth Trajectories)
 │
 ├── requirements.txt        ← Python dependencies
 └── README.md               ← You are here
@@ -97,7 +99,7 @@ Each `analysis*/` folder follows a consistent structure:
 
 ---
 
-## 🔬 The Eight Research Questions
+## 🔬 The Ten Research Questions
 
 ### 📊 Analysis 1 — Do Bigger Models Reason More Morally?
 *Does model size (parameter count) predict a higher Kohlberg stage?*
@@ -197,6 +199,26 @@ Moral reasoning capacity is primarily parameter-count limited. Training procedur
 **Effect sizes:** Scale partial η²=0.050, ω²=0.041, Cohen's d=0.55 (Large vs. Small).
 
 📂 `analysis8/results/` — includes `summary_panel.png` (journal-ready 4-panel figure), `interaction_plot.png`, `variance_bars.png`, `box_violin.png`, `posthoc_matrix.png`, `bar_with_jitter.png`
+
+---
+
+### 🧠 Analysis 9 — What Sub-Capabilities Drive Moral Reasoning?
+*Beyond raw parameter count, what specific linguistic/structural capabilities (coherence, lexical diversity, semantic density) predict higher moral stages?*
+
+**Method:** Capability metric extraction, Pearson/Spearman correlation with FDR correction, logistic threshold detection, and multi-factor regression on moral stage scores.
+**Finding:** Features like semantic density and syntactic complexity act as step-function thresholds for post-conventional reasoning, providing a more detailed breakdown of what "scale" actually contributes to moral reasoning.
+
+📂 `analysis9/results/`
+
+---
+
+### 📈 Analysis 10 — How Do Models Transition Between Stages?
+*As model scale increases, do moral reasoning stages progress gradually or jump abruptly? Do they consolidate at specific stages before moving on?*
+
+**Method:** Shannon entropy, Gini coefficient, aggregate transition matrix sequence analysis, and Kruskal-Wallis/Friedman non-parametric tests across model parameter scales.
+**Finding:** Model progression follows **Pattern C (Non-sequential / Unstable)**. Transitions between stages are non-sequential. Models exhibit high sustained entropy across dilemmas and occasional regressions, indicating they lack the stable developmental trajectories seen in humans.
+
+📂 `analysis10/results/`
 
 ---
 
