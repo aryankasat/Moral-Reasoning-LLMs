@@ -1,12 +1,14 @@
 """
-statistics.py — All statistical computations.
+stat_analysis.py — All statistical computations.
 
 Public API
 ----------
 compute_model_stats(df)         -> pd.DataFrame   per-model summary
 add_bootstrap_ci(df, summary)   -> pd.DataFrame   adds ci_lo / ci_hi columns
-spearman_with_ci(x, y)          -> dict           ρ, p, CI, R², effect size
-run_nonparametric_tests(df)     -> dict           KW stat/p + Dunn table
+spearman_with_ci(x, y)          -> dict           ρ, p, CI, R², effect, significant
+run_nonparametric_tests(df)     -> dict           kw_stat, kw_p, kw_df, kw_eta2,
+                                                  dunn (adj. p-values, Bonferroni),
+                                                  dunn_sig (boolean significance matrix)
 """
 
 from __future__ import annotations
@@ -139,7 +141,8 @@ def spearman_with_ci(
     # Keep key as 'r2' for backward compatibility with downstream consumers
     return dict(rho=float(rho), p=float(p),
                 ci_lo=ci_lo, ci_hi=ci_hi,
-                r2=float(rho ** 2), effect=effect)
+                r2=float(rho ** 2), effect=effect,
+                significant=bool(p < 0.05))
 
 
 # ── Non-parametric tests ─────────────────────────────────────────────────────
@@ -147,20 +150,33 @@ def spearman_with_ci(
 def run_nonparametric_tests(df: pd.DataFrame) -> dict:
     """
     Kruskal-Wallis H test across all models, followed by
-    Dunn pairwise post-hoc with Holm-Bonferroni correction.
+    Dunn pairwise post-hoc with Bonferroni correction.
 
     Returns dict with keys:
-        kw_stat, kw_p, dunn  (dunn is a pd.DataFrame of adjusted p-values
-                               with display_name labels)
+        kw_stat   – Kruskal-Wallis H statistic
+        kw_p      – p-value for Kruskal-Wallis
+        kw_df     – degrees of freedom (number of groups − 1)
+        kw_eta2   – eta-squared effect size: (H − k + 1) / (n − k)
+        dunn      – pd.DataFrame of Bonferroni-adjusted pairwise p-values
+                    (display_name labels on both axes)
+        dunn_sig  – boolean pd.DataFrame (True where adj. p < 0.05)
     """
     groups = [g["kohlberg_stage"].values for _, g in df.groupby("model_key")]
+    k = len(groups)                       # number of groups
+    n = sum(len(g) for g in groups)       # total observations
     kw_stat, kw_p = kruskal(*groups)
 
+    # Degrees of freedom and eta-squared effect size
+    kw_df   = k - 1
+    kw_eta2 = (kw_stat - k + 1) / (n - k)  # standard formula for KW eta²
+    kw_eta2 = float(max(kw_eta2, 0.0))      # clamp to [0, 1] (can be slightly negative for tiny H)
+
+    # Dunn pairwise post-hoc: Bonferroni correction (controls FWER)
     dunn_df: pd.DataFrame = sp.posthoc_dunn(
         df,
         val_col="kohlberg_stage",
         group_col="model_key",
-        p_adjust="holm",   # Holm-Bonferroni: controls FWER, less conservative than raw Bonferroni
+        p_adjust="bonferroni",
     )
 
     # Remap model_key → display_name for readable output
@@ -170,6 +186,14 @@ def run_nonparametric_tests(df: pd.DataFrame) -> dict:
         .set_index("model_key")["display_name"]
         .to_dict()
     )
-    dunn_df = dunn_df.rename(index=key_to_name, columns=key_to_name)
+    dunn_df  = dunn_df.rename(index=key_to_name, columns=key_to_name)
+    dunn_sig = (dunn_df < 0.05).astype(bool)  # significance mask
 
-    return dict(kw_stat=float(kw_stat), kw_p=float(kw_p), dunn=dunn_df)
+    return dict(
+        kw_stat=float(kw_stat),
+        kw_p=float(kw_p),
+        kw_df=int(kw_df),
+        kw_eta2=kw_eta2,
+        dunn=dunn_df,
+        dunn_sig=dunn_sig,
+    )

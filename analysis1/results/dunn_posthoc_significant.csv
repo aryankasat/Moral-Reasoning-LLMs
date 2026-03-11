@@ -1,0 +1,14 @@
+,Claude 3.5 Haiku,Claude Sonnet 4.5,DeepSeek-R1 671B,DeepSeek-V3.1 671B,GPT-4o,GPT-OSS 120B,Llama 3.3 70B,Llama 4 Scout 109B,Ministral 8B,Qwen3-235B (Think),Qwen3-30B Coder,Qwen3-32B,Qwen3-80B
+Claude 3.5 Haiku,False,False,False,False,False,False,False,False,False,False,False,False,False
+Claude Sonnet 4.5,False,False,False,False,False,False,False,False,False,False,False,False,False
+DeepSeek-R1 671B,False,False,False,False,False,False,False,False,False,True,False,False,False
+DeepSeek-V3.1 671B,False,False,False,False,False,False,False,False,False,False,False,False,False
+GPT-4o,False,False,False,False,False,False,False,False,False,True,False,False,False
+GPT-OSS 120B,False,False,False,False,False,False,False,False,False,True,False,False,False
+Llama 3.3 70B,False,False,False,False,False,False,False,False,False,True,False,False,False
+Llama 4 Scout 109B,False,False,False,False,False,False,False,False,False,True,False,False,False
+Ministral 8B,False,False,False,False,False,False,False,False,False,True,False,False,False
+Qwen3-235B (Think),False,False,True,False,True,True,True,True,True,False,True,True,False
+Qwen3-30B Coder,False,False,False,False,False,False,False,False,False,True,False,False,False
+Qwen3-32B,False,False,False,False,False,False,False,False,False,True,False,False,True
+Qwen3-80B,False,False,False,False,False,False,False,False,False,False,False,True,False

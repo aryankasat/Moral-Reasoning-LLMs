@@ -64,10 +64,12 @@ def load_all_data() -> pd.DataFrame:
             provider     = provider,
         )
 
-        keep_cols = [
+        base_cols = [
             "model_key", "display_name", "params_B", "log_params", "provider",
-            "kohlberg_stage", "kohlberg_confidence", "dilemma_type", "prompt_type", "response"
+            "kohlberg_stage", "kohlberg_confidence", "dilemma_type", "prompt_type",
         ]
+        # Include 'response' only when available (not all eval files have it)
+        keep_cols = base_cols + [c for c in ["response"] if c in edf.columns]
         frames.append(edf[keep_cols])
 
     df = pd.concat(frames, ignore_index=True)
