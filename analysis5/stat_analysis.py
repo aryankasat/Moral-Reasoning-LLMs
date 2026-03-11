@@ -1,11 +1,22 @@
 """
 stat_analysis.py — Statistical computations for Action-Reasoning Consistency.
+
+Public API
+----------
+compute_overall_consistency(df)      -> (pd.DataFrame, pd.DataFrame)
+compute_action_distributions(df)     -> pd.DataFrame
+compute_stage_action_crosstab(valid) -> pd.DataFrame
+run_chi_square(valid_df)             -> dict
+run_mcnemar_tests(valid_df)          -> dict
+    Global McNemar test on pooled 2×2 table (expected vs actual action)
+    + per-model McNemar tests with Bonferroni correction.
 """
 
 from __future__ import annotations
 import numpy as np
 import pandas as pd
 from scipy.stats import chi2_contingency
+from statsmodels.stats.contingency_tables import mcnemar
 from config import EXPECTED_ACTION_BY_STAGE
 
 def compute_overall_consistency(df: pd.DataFrame) -> pd.DataFrame:
@@ -88,3 +99,131 @@ def run_chi_square(valid_df: pd.DataFrame) -> dict:
         "significant": p < 0.05
     }
 
+
+def _mcnemar_2x2(expected: np.ndarray, actual: np.ndarray) -> dict:
+    """
+    Build the 2×2 paired-consistency contingency table and run McNemar's test.
+
+    Cells:
+        a = both expected AND actual are Rule-Following
+        b = expected Rule-Following but actual Rule-Breaking  (off-diagonal)
+        c = expected Rule-Breaking but actual Rule-Following  (off-diagonal)
+        d = both expected AND actual are Rule-Breaking
+
+    McNemar's test is on the off-diagonal discordant pairs (b, c).
+    Uses exact binomial when b+c < 25, chi² with continuity otherwise.
+    Returns dict with keys: a, b, c, d, statistic, p_value, significant, method.
+    """
+    FOLLOW = "Rule-Following"
+    BREAK  = "Rule-Breaking"
+
+    a = int(np.sum((expected == FOLLOW) & (actual == FOLLOW)))
+    b = int(np.sum((expected == FOLLOW) & (actual == BREAK)))
+    c = int(np.sum((expected == BREAK)  & (actual == FOLLOW)))
+    d = int(np.sum((expected == BREAK)  & (actual == BREAK)))
+
+    table = np.array([[a, b], [c, d]])
+    n_discordant = b + c
+
+    if n_discordant == 0:
+        # Perfect agreement on discordant cells → p = 1
+        return dict(a=a, b=b, c=c, d=d,
+                    statistic=0.0, p_value=1.0, significant=False,
+                    method="exact", n_discordant=0)
+
+    # exact=True uses binomial; exact=False uses chi² with continuity correction
+    exact = n_discordant < 25
+    result = mcnemar(table, exact=exact, correction=True)
+    return dict(
+        a=a, b=b, c=c, d=d,
+        statistic=float(result.statistic),
+        p_value=float(result.pvalue),
+        significant=bool(result.pvalue < 0.05),
+        method="exact_binomial" if exact else "chi2_continuity",
+        n_discordant=n_discordant,
+    )
+
+
+def run_mcnemar_tests(valid_df: pd.DataFrame) -> dict:
+    """
+    McNemar's test for paired action-reasoning consistency.
+
+    For each observation the 'expected' action is derived from the model's
+    assigned Kohlberg stage (via EXPECTED_ACTION_BY_STAGE) and the 'actual'
+    action is the categorised action_category.  The 2×2 table of
+    (expected, actual) ∈ {Rule-Following, Rule-Breaking}² is a natural
+    McNemar setup because the same dilemma drives both measurements.
+
+    Tests run:
+    1. Global   — pooled across all models and dilemmas.
+    2. Per-model — one test per model, Bonferroni-corrected p-values.
+    3. Per-dilemma — one test per dilemma, Bonferroni-corrected.
+
+    Returns
+    -------
+    dict with keys:
+        global          – dict (McNemar result for pooled data)
+        per_model       – pd.DataFrame  (one row per model, with p_adj)
+        per_dilemma     – pd.DataFrame  (one row per dilemma, with p_adj)
+    """
+    # Work on a copy with expected action filled in
+    df = valid_df.copy()
+    df["expected_action"] = df["kohlberg_stage"].map(EXPECTED_ACTION_BY_STAGE)
+
+    # ── 1. Global test ──────────────────────────────────────────────────────
+    global_result = _mcnemar_2x2(
+        df["expected_action"].values,
+        df["action_category"].values,
+    )
+
+    # ── 2. Per-model tests ──────────────────────────────────────────────────
+    model_rows = []
+    for mk, grp in df.groupby("model_key"):
+        res = _mcnemar_2x2(
+            grp["expected_action"].values,
+            grp["action_category"].values,
+        )
+        model_rows.append({
+            "model_key":    mk,
+            "display_name": grp["display_name"].iloc[0],
+            "params_B":     grp["params_B"].iloc[0],
+            "n_discordant": res["n_discordant"],
+            "a": res["a"], "b": res["b"], "c": res["c"], "d": res["d"],
+            "statistic":    res["statistic"],
+            "p_value":      res["p_value"],
+            "method":       res["method"],
+        })
+    per_model_df = pd.DataFrame(model_rows).sort_values("params_B")
+    n_models = len(per_model_df)
+    per_model_df["p_adj_bonferroni"] = np.minimum(
+        per_model_df["p_value"] * n_models, 1.0
+    )
+    per_model_df["significant_adj"] = per_model_df["p_adj_bonferroni"] < 0.05
+
+    # ── 3. Per-dilemma tests ────────────────────────────────────────────────
+    dilemma_rows = []
+    for dilemma, grp in df.groupby("dilemma_type"):
+        res = _mcnemar_2x2(
+            grp["expected_action"].values,
+            grp["action_category"].values,
+        )
+        dilemma_rows.append({
+            "dilemma_type":  dilemma,
+            "n_discordant":  res["n_discordant"],
+            "a": res["a"], "b": res["b"], "c": res["c"], "d": res["d"],
+            "statistic":     res["statistic"],
+            "p_value":       res["p_value"],
+            "method":        res["method"],
+        })
+    per_dilemma_df = pd.DataFrame(dilemma_rows)
+    n_dilemmas = len(per_dilemma_df)
+    per_dilemma_df["p_adj_bonferroni"] = np.minimum(
+        per_dilemma_df["p_value"] * n_dilemmas, 1.0
+    )
+    per_dilemma_df["significant_adj"] = per_dilemma_df["p_adj_bonferroni"] < 0.05
+
+    return dict(
+        global_test=global_result,
+        per_model=per_model_df,
+        per_dilemma=per_dilemma_df,
+    )

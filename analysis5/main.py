@@ -19,6 +19,9 @@ CSVs:
     consistency_scores_by_model.csv
     stage_action_crosstab.csv
     qualitative_inconsistencies.csv
+    mcnemar_global.csv
+    mcnemar_per_model.csv
+    mcnemar_per_dilemma.csv
 """
 
 import sys
@@ -35,7 +38,8 @@ from stat_analysis import (
     compute_overall_consistency,
     compute_action_distributions,
     compute_stage_action_crosstab,
-    run_chi_square
+    run_chi_square,
+    run_mcnemar_tests,
 )
 from visualizations import (
     plot_action_by_dilemma,
@@ -63,6 +67,9 @@ def main() -> None:
     ct = compute_stage_action_crosstab(valid_df)
     chi_results = run_chi_square(valid_df)
 
+    print("          Running McNemar paired consistency tests …")
+    mcnemar_results = run_mcnemar_tests(valid_df)
+
     print("Step 3/5  Generating 6 publication-quality figures …")
     plot_action_by_dilemma(action_dists, OUT_DIR)
     plot_stage_action_heatmap(ct, OUT_DIR)
@@ -72,10 +79,10 @@ def main() -> None:
     plot_3d_stage_action_landscape(ct, OUT_DIR)
 
     print("Step 4/5  Saving CSV reports …")
-    save_results(consist_df, valid_df, ct, OUT_DIR)
+    save_results(consist_df, valid_df, ct, mcnemar_results, OUT_DIR)
 
     print("Step 5/5  Printing console report …")
-    print_report(consist_df, ct, chi_results, len(valid_df))
+    print_report(consist_df, ct, chi_results, mcnemar_results, len(valid_df))
 
     elapsed = time.perf_counter() - t0
     print(f"All outputs saved to:  {OUT_DIR}")

@@ -1,0 +1,7 @@
+dilemma_type,n_discordant,a,b,c,d,statistic,p_value,method,p_adj_bonferroni,significant_adj
+DOCTOR_DILLEMA,37,0,0,37,2,35.027027,0.000000,chi2_continuity,0.000000,True
+HEINZ_DILEMMA,1,1,1,0,31,0.000000,1.000000,exact_binomial,1.000000,False
+LIFEBOAT_DILEMMA,9,0,0,9,22,0.000000,0.003906,exact_binomial,0.023438,True
+PROMISE_DILEMMA,0,0,0,0,39,0.000000,1.000000,exact,1.000000,False
+STOLEN_FOOD_DILEMMA,0,0,0,0,31,0.000000,1.000000,exact,1.000000,False
+TROLLEY_DILLEMA,0,0,0,0,39,0.000000,1.000000,exact,1.000000,False

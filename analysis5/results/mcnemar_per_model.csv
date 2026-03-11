@@ -1,0 +1,14 @@
+model_key,display_name,params_B,n_discordant,a,b,c,d,statistic,p_value,method,p_adj_bonferroni,significant_adj
+ministral_8b_instruct,Ministral 8B,8,3,0,0,3,13,0.000000,0.250000,exact_binomial,1.000000,False
+claude_haiku_3_5,Claude 3.5 Haiku,20,3,0,0,3,14,0.000000,0.250000,exact_binomial,1.000000,False
+qwen3_30B_Coder_Instruct,Qwen3-30B Coder,30,3,0,0,3,14,0.000000,0.250000,exact_binomial,1.000000,False
+qwen3_32b,Qwen3-32B,32,2,0,0,2,16,0.000000,0.500000,exact_binomial,1.000000,False
+llama3_70B,Llama 3.3 70B,70,3,0,0,3,11,0.000000,0.250000,exact_binomial,1.000000,False
+qwen3_80b_instruct,Qwen3-80B,80,6,0,0,6,12,0.000000,0.031250,exact_binomial,0.406250,False
+llama4_scout,Llama 4 Scout 109B,109,7,1,1,6,10,1.000000,0.125000,exact_binomial,1.000000,False
+gpt-oss-120B,GPT-OSS 120B,120,3,0,0,3,11,0.000000,0.250000,exact_binomial,1.000000,False
+claude_sonnet_4_5,Claude Sonnet 4.5,175,3,0,0,3,12,0.000000,0.250000,exact_binomial,1.000000,False
+gpt-4o,GPT-4o,200,3,0,0,3,9,0.000000,0.250000,exact_binomial,1.000000,False
+qwen3_235b_thinking,Qwen3-235B (Think),235,6,0,0,6,11,0.000000,0.031250,exact_binomial,0.406250,False
+deepseek_r1,DeepSeek-R1 671B,671,3,0,0,3,15,0.000000,0.250000,exact_binomial,1.000000,False
+deepseek_v3_1,DeepSeek-V3.1 671B,671,2,0,0,2,16,0.000000,0.500000,exact_binomial,1.000000,False
