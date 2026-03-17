@@ -122,23 +122,24 @@ def plot_box_by_model(
 
         # Annotate median
         ax.text(med_val + 0.04, i + 1.32, f"{med_val:.1f}",
-                va="bottom", ha="left", fontsize=7.5,
+                va="bottom", ha="left", fontsize=10,
                 color=color, fontweight="bold")
 
     ax.set_yticks(range(1, n + 1))
-    ax.set_yticklabels(order, fontsize=8.5)
+    ax.set_yticklabels(order, fontsize=11)
     ax.set_xticks(range(1, 7))
     ax.set_xticklabels(
         ["S1\nObedience", "S2\nSelf-Interest", "S3\nConformity",
          "S4\nLaw & Order", "S5\nSocial Contract", "S6\nUniversal Ethics"],
-        fontsize=8.5,
+        fontsize=11,
+        rotation=30,
     )
     ax.set_xlabel("Kohlberg Moral Development Stage", labelpad=6)
     ax.set_title(
         "Distribution of Kohlberg Moral Reasoning Stage by Model\n"
         r"(ordered by parameter scale; $\diamondsuit$ = outlier, "
         "coloured line = median)",
-        fontsize=10, pad=10,
+        fontsize=13, pad=10,
     )
     ax.set_xlim(0.5, 6.7)
 
@@ -195,7 +196,7 @@ def plot_scatter_scale_stage(
         t = ax.text(
             row["log_params"], row["mean_stage"],
             row["display_name"],
-            fontsize=6.5, alpha=0.88,
+            fontsize=9.0, alpha=0.88,
         )
         texts.append(t)
 
@@ -234,7 +235,7 @@ def plot_scatter_scale_stage(
     ax.text(
         0.03, 0.97, corr_text,
         transform=ax.transAxes,
-        fontsize=7.5, va="top", ha="left",
+        fontsize=10, va="top", ha="left",
         bbox=dict(boxstyle="round,pad=0.4", facecolor="white",
                   edgecolor="#cccccc", linewidth=0.6, alpha=0.92),
     )
@@ -252,7 +253,7 @@ def plot_scatter_scale_stage(
     tick_lbl = [nice_labels[nice_log.index(t)] for t in tick_log]
 
     ax.set_xticks(tick_log)
-    ax.set_xticklabels(tick_lbl, fontsize=9)
+    ax.set_xticklabels(tick_lbl, fontsize=11)
     ax.set_xlim(x_lo, x_hi)
 
     # Light vertical grid lines at the nice ticks
@@ -261,14 +262,14 @@ def plot_scatter_scale_stage(
 
     # ── Y-axis ────────────────────────────────────────────────────────────
     ax.set_yticks(range(1, 7))
-    ax.set_yticklabels([f"Stage {i}" for i in range(1, 7)], fontsize=8.5)
+    ax.set_yticklabels([f"Stage {i}" for i in range(1, 7)], fontsize=11)
     ax.set_ylim(4.5, 6.7)
 
     ax.set_xlabel("Model Scale  (approximate parameter count, log scale)", labelpad=6)
     ax.set_ylabel("Mean Kohlberg Stage  +/- 95% Bootstrap CI", labelpad=5)
     ax.set_title(
         "Model Scale vs. Moral Reasoning Stage",
-        fontsize=11, pad=10, fontweight="bold",
+        fontsize=14, pad=10, fontweight="bold",
     )
 
     # Legend — anchor to the right of the axes; data cluster is at lower-right
@@ -277,8 +278,8 @@ def plot_scatter_scale_stage(
         mlines.Line2D([], [], color="#555555", linewidth=1.2,
                       linestyle="--", label="Linear trend (OLS)")
     )
-    ax.legend(handles=leg_handles, title="Provider", fontsize=7.5,
-              title_fontsize=8, loc="upper left", bbox_to_anchor=(1.02, 1),
+    ax.legend(handles=leg_handles, title="Provider", fontsize=10,
+              title_fontsize=11, loc="upper left", bbox_to_anchor=(1.02, 1),
               framealpha=0.92, edgecolor="#cccccc", borderaxespad=0)
 
     fig.tight_layout()

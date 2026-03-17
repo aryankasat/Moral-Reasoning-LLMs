@@ -67,13 +67,13 @@ PUBLICATION_STYLE: dict = {
     # Font
     "font.family":       "serif",
     "font.serif":        ["Times New Roman", "DejaVu Serif", "Palatino"],
-    "font.size":         10,
-    "axes.titlesize":    12,
-    "axes.labelsize":    11,
-    "xtick.labelsize":   9,
-    "ytick.labelsize":   9,
-    "legend.fontsize":   9,
-    "legend.title_fontsize": 9,
+    "font.size":         12,
+    "axes.titlesize":    14,
+    "axes.labelsize":    13,
+    "xtick.labelsize":   11,
+    "ytick.labelsize":   11,
+    "legend.fontsize":   11,
+    "legend.title_fontsize": 11,
 
     # Lines
     "axes.linewidth":    0.8,
