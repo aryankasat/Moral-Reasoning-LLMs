@@ -149,7 +149,7 @@ def plot_threshold_detection(model_df: pd.DataFrame,
             row["display_name"],
             (row["log_params"], row["mean_stage"]),
             textcoords="offset points", xytext=(5, 3),
-            fontsize=6.5, color="#333333",
+            fontsize=10.0, color="#333333",
         )
 
     if t_res.get("x_fine") is not None:
@@ -165,12 +165,12 @@ def plot_threshold_detection(model_df: pd.DataFrame,
         ax.axvline(sif, color="#e15759", ls=":", lw=1.5, alpha=0.8)
         ax.text(sif + 0.02, ax.get_ylim()[1] * 0.97,
                 f"Inflection\nx={sif:.2f}", color="#e15759",
-                fontsize=7.5, va="top")
+                fontsize=11.0, va="top")
 
-    ax.set_xlabel("log₁₀(Parameters, B)", fontsize=10)
-    ax.set_ylabel("Mean Kohlberg Stage", fontsize=10)
-    ax.set_title("Figure B: Threshold Detection\n(log Params vs. Mean Stage)", fontsize=10)
-    ax.legend(fontsize=8, loc="upper left")
+    ax.set_xlabel("log₁₀(Parameters, B)", fontsize=14)
+    ax.set_ylabel("Mean Kohlberg Stage", fontsize=14)
+    ax.set_title("Figure B: Threshold Detection\n(log Params vs. Mean Stage)", fontsize=16)
+    ax.legend(fontsize=12, loc="upper left")
     ax.grid(True, ls="--", alpha=0.35)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -192,17 +192,17 @@ def plot_threshold_detection(model_df: pd.DataFrame,
         ax2.axvline(0.7, color="#e15759", ls=":", lw=1.2, alpha=0.7, label="Good (0.7)")
         for bar, val in zip(bars, auc_df["AUC"]):
             ax2.text(val + 0.01, bar.get_y() + bar.get_height() / 2,
-                     f"{val:.2f}", va="center", fontsize=8)
+                     f"{val:.2f}", va="center", fontsize=11)
         ax2.set_xlim(0, 1.05)
-        ax2.set_xlabel("AUC (High vs. Low Mean Stage)", fontsize=10)
-        ax2.set_title("Metric AUC: Predicting\nHigh vs. Low Mean Stage", fontsize=10)
-        ax2.legend(fontsize=8)
+        ax2.set_xlabel("AUC (High vs. Low Mean Stage)", fontsize=14)
+        ax2.set_title("Metric AUC: Predicting\nHigh vs. Low Mean Stage", fontsize=16)
+        ax2.legend(fontsize=12)
         ax2.spines["top"].set_visible(False)
         ax2.spines["right"].set_visible(False)
     else:
         ax2.text(0.5, 0.5, "AUC data unavailable", ha="center", va="center",
-                 transform=ax2.transAxes, fontsize=10, color="grey")
-        ax2.set_title("Metric AUC", fontsize=10)
+                 transform=ax2.transAxes, fontsize=14, color="grey")
+        ax2.set_title("Metric AUC", fontsize=16)
 
     plt.tight_layout()
     out_path = OUT_DIR / "fig_B_threshold_detection.png"

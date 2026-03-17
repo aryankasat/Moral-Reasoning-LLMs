@@ -117,7 +117,7 @@ def plot_stacked_bar(dist_df: pd.DataFrame, out_dir: Path) -> None:
                 ax.text(
                     left + w / 2, row_idx,
                     f"{w*100:.0f}%",
-                    ha="center", va="center", fontsize=6.2,
+                    ha="center", va="center", fontsize=9.0,
                     color="white" if STAGE_COLORS[s] in ("#4575b4", "#1a237e", "#d73027") else "#222222",
                     fontweight="bold",
                 )
@@ -140,26 +140,26 @@ def plot_stacked_bar(dist_df: pd.DataFrame, out_dir: Path) -> None:
             y_colors.append(_pc(prov))
 
     ax.set_yticks(y_pos)
-    ax.set_yticklabels(y_labels, fontsize=8.0)
+    ax.set_yticklabels(y_labels, fontsize=12.0)
     for ytick, col in zip(ax.get_yticklabels(), y_colors):
         ytick.set_color(col)
 
     ax.set_xlim(0, 1.01)
     ax.set_xticks(np.arange(0, 1.1, 0.1))
-    ax.set_xticklabels([f"{int(v*100)}%" for v in np.arange(0, 1.1, 0.1)], fontsize=8)
-    ax.set_xlabel("Proportion of Responses", labelpad=5)
+    ax.set_xticklabels([f"{int(v*100)}%" for v in np.arange(0, 1.1, 0.1)], fontsize=12)
+    ax.set_xlabel("Proportion of Responses", labelpad=5, fontsize=14)
     ax.set_title(
         "Kohlberg Stage Distribution — All Models vs. Human Baselines\n"
         "(hatch = human baseline; y-axis colour = provider; "
         "bars sorted by model scale small→large)",
-        fontsize=10, pad=8, fontweight="bold",
+        fontsize=16, pad=8, fontweight="bold",
     )
 
     leg = ax.legend(
         handles=_stage_handles(),
-        title="Kohlberg Stage", title_fontsize=8,
+        title="Kohlberg Stage", title_fontsize=12,
         loc="upper left", bbox_to_anchor=(1.01, 1.0),
-        fontsize=7.5, framealpha=0.92, edgecolor="#cccccc",
+        fontsize=11.0, framealpha=0.92, edgecolor="#cccccc",
         ncol=1,
     )
 
@@ -219,7 +219,7 @@ def plot_histogram_grid(dist_df: pd.DataFrame, chi_df: pd.DataFrame, out_dir: Pa
             sig   = "***" if p_val < 0.001 else ("**" if p_val < 0.01 else ("*" if p_val < 0.05 else "n.s."))
             ax.text(0.97, 0.97,
                     f"χ² {sig}\nJSD={jsd:.3f}",
-                    transform=ax.transAxes, fontsize=6.0,
+                    transform=ax.transAxes, fontsize=8.0,
                     va="top", ha="right", color="#333333",
                     bbox=dict(boxstyle="round,pad=0.2", facecolor="white",
                               edgecolor="#cccccc", lw=0.5, alpha=0.90))
@@ -227,16 +227,16 @@ def plot_histogram_grid(dist_df: pd.DataFrame, chi_df: pd.DataFrame, out_dir: Pa
         prov_col = _pc(mrow["provider"])
         ax.set_title(
             mrow["display_name"],
-            fontsize=7.0, pad=4, fontweight="bold", color=prov_col,
+            fontsize=11.0, pad=4, fontweight="bold", color=prov_col,
         )
         ax.set_xticks(x)
-        ax.set_xticklabels([f"S{s}" for s in STAGES], fontsize=6.5)
+        ax.set_xticklabels([f"S{s}" for s in STAGES], fontsize=10.0)
         ax.set_ylim(0, 1.05)
         ax.set_yticklabels([])
         ax.yaxis.set_visible(ax_idx % n_cols == 0)
         if ax_idx % n_cols == 0:
             ax.set_yticks([0, 0.25, 0.50, 0.75, 1.0])
-            ax.set_yticklabels(["0%", "25%", "50%", "75%", "100%"], fontsize=6.0)
+            ax.set_yticklabels(["0%", "25%", "50%", "75%", "100%"], fontsize=10.0)
         ax.tick_params(axis="x", length=2)
 
     # Hide unused panels
@@ -253,16 +253,16 @@ def plot_histogram_grid(dist_df: pd.DataFrame, chi_df: pd.DataFrame, out_dir: Pa
     ]
     fig.legend(
         handles=handles,
-        title="Stage / Baseline", title_fontsize=7.5,
-        loc="lower center", ncol=7,
-        bbox_to_anchor=(0.5, -0.02),
-        fontsize=7.0, framealpha=0.92, edgecolor="#cccccc",
+        title="Stage / Baseline", title_fontsize=12.0,
+        loc="upper center", ncol=7,
+        bbox_to_anchor=(0.5, -0.01),
+        fontsize=11.0, framealpha=0.92, edgecolor="#cccccc",
     )
 
     fig.suptitle(
         "Per-Model Stage Proportion  (bars = model; dashed red = Human Adult baseline)\n"
         "* p<0.05  ** p<0.01  *** p<0.001  n.s. = not significant",
-        fontsize=9.5, fontweight="bold", y=1.02,
+        fontsize=16.0, fontweight="bold", y=1.02,
     )
     fig.tight_layout()
     _save(fig, out_dir, "fig2_histogram_grid.png")
@@ -287,7 +287,7 @@ def plot_jsd_heatmap(jsd_df: pd.DataFrame, out_dir: Path) -> None:
             jsd_df,
             cmap="YlOrRd", vmin=0, vmax=0.55,
             annot=True, fmt=".2f",
-            annot_kws={"size": 6.5, "fontweight": "bold"},
+            annot_kws={"size": 10.0, "fontweight": "bold"},
             linewidths=0.4, linecolor="#e0e0e0",
             row_colors=row_colors,
             col_colors=row_colors,
@@ -299,12 +299,12 @@ def plot_jsd_heatmap(jsd_df: pd.DataFrame, out_dir: Path) -> None:
             method="average", metric="euclidean",
         )
 
-    g.ax_cbar.tick_params(labelsize=8)
+    g.ax_cbar.tick_params(labelsize=12)
     g.ax_heatmap.set_xticklabels(
-        g.ax_heatmap.get_xticklabels(), fontsize=7.0, rotation=40, ha="right"
+        g.ax_heatmap.get_xticklabels(), fontsize=12.0, rotation=40, ha="right"
     )
     g.ax_heatmap.set_yticklabels(
-        g.ax_heatmap.get_yticklabels(), fontsize=7.0, rotation=0
+        g.ax_heatmap.get_yticklabels(), fontsize=12.0, rotation=0
     )
     g.ax_heatmap.set_xlabel("")
     g.ax_heatmap.set_ylabel("")
@@ -317,13 +317,13 @@ def plot_jsd_heatmap(jsd_df: pd.DataFrame, out_dir: Path) -> None:
     g.figure.legend(
         handles=handles, title="Row / Col type",
         loc="upper left", bbox_to_anchor=(0.01, 0.99),
-        fontsize=8, framealpha=0.92, edgecolor="#cccccc",
+        fontsize=12, framealpha=0.92, edgecolor="#cccccc",
     )
 
     g.figure.suptitle(
         "Pairwise Jensen-Shannon Divergence\n"
         "(0 = identical distributions; 1 = maximally different)",
-        fontsize=10, fontweight="bold", y=1.03,
+        fontsize=16, fontweight="bold", y=1.03,
     )
     _save(g.figure, out_dir, "fig3_jsd_heatmap.png")
 

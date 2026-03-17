@@ -46,12 +46,12 @@ def _format_params(p: float) -> str:
     return f"{p:.0f}B"
 
 
-def _log_param_xticks(ax, params_values: np.ndarray) -> None:
+def _log_param_xticks(ax, params_values: np.ndarray, fontsize=8) -> None:
     """Set x-ticks at the exact (plot) parameter counts with human-readable labels."""
     log_vals = np.log10(params_values)
     ax.set_xticks(log_vals)
     ax.set_xticklabels([_format_params(p) for p in params_values],
-                       rotation=35, ha="right", fontsize=8)
+                       rotation=35, ha="right", fontsize=fontsize)
 
 
 def _shade_ci(ax, x_vals, ci_lower, ci_upper, color="#457b9d", alpha=0.18) -> None:
@@ -76,10 +76,10 @@ def plot_emergence_curves(
     X-axis uses log10(params_B_plot) — always populated, no NaN.
     """
     apply_publication_style()
-    fig, axes = plt.subplots(1, 3, figsize=(16, 6), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(22, 9.5), sharey=True)
     fig.suptitle(
         "Figure 1: Emergence Curves — Moral Reasoning Stage vs. Model Scale",
-        fontsize=13, fontweight="bold", y=1.02,
+        fontsize=18, fontweight="bold", y=1.02,
     )
 
     changepoints        = analysis_results.get("changepoints", [])
@@ -99,8 +99,8 @@ def plot_emergence_curves(
 
         if sub.empty:
             ax.text(0.5, 0.5, "No data in this range",
-                    ha="center", va="center", transform=ax.transAxes, color="#999")
-            ax.set_title(group_name, fontsize=10, fontweight="bold")
+                    ha="center", va="center", transform=ax.transAxes, color="#999", fontsize=12)
+            ax.set_title(group_name, fontsize=14, fontweight="bold")
             continue
 
         x_plot  = sub["log_params_plot"].values   # guaranteed non-NaN
@@ -122,13 +122,13 @@ def plot_emergence_curves(
             ax.scatter(xi, yi, color=color, s=70, zorder=5,
                        edgecolors="white", linewidth=0.6)
             # Model label (stagger alternately above/below to reduce overlap)
-            offset_y = 0.10 if sub.index.get_loc(row.Index) % 2 == 0 else -0.15
+            offset_y = 0.10 if sub.index.get_loc(row.Index) % 2 == 0 else -0.18
             ax.annotate(
                 row.display_name,
                 xy=(xi, yi),
-                xytext=(0, int(offset_y * 60)),
+                xytext=(0, int(offset_y * 100)),
                 textcoords="offset points",
-                fontsize=7, ha="center", color="#333",
+                fontsize=13, ha="center", color="#333",
                 rotation=20, zorder=6,
             )
 
@@ -137,7 +137,7 @@ def plot_emergence_curves(
             ax.axhline(stage_y, color=STAGE_COLORS[stage_y],
                        linestyle=":", linewidth=0.9, alpha=0.6, zorder=0)
             ax.text(x_plot.max(), stage_y + 0.03, stage_lbl,
-                    color=STAGE_COLORS[stage_y], fontsize=6.5, ha="right",
+                    color=STAGE_COLORS[stage_y], fontsize=12, ha="right",
                     va="bottom", zorder=0)
 
         # Changepoints that fall within this panel's x range
@@ -150,7 +150,7 @@ def plot_emergence_curves(
                     ax.axvline(bkp_x, color="#e63946", linestyle="--",
                                linewidth=1.4, alpha=0.85, zorder=4)
                     ax.text(bkp_x + 0.01, y_lo.min() + 0.05,
-                            "CP", color="#e63946", fontsize=7, zorder=4)
+                            "CP", color="#e63946", fontsize=13, zorder=4)
 
         # Emergence marker
         if not np.isnan(emrg_p) and lo <= emrg_p <= hi:
@@ -158,23 +158,24 @@ def plot_emergence_curves(
                        linewidth=1.5, alpha=0.9, zorder=4)
             ax.text(np.log10(emrg_p) + 0.01, y_hi.max() - 0.2,
                     f"Stage 5+\nEmergence\n({_format_params(emrg_p)})",
-                    color="#2a9d8f", fontsize=6.5, zorder=4)
+                    color="#2a9d8f", fontsize=12, zorder=4)
 
         # Axes
-        ax.set_title(group_name, fontsize=10, fontweight="bold", pad=8)
-        ax.set_xlabel("Model Parameters (log scale)", fontsize=9)
+        ax.set_title(group_name, fontsize=16, fontweight="bold", pad=10)
+        ax.set_xlabel("Model Parameters (log scale)", fontsize=15)
         if ax is axes[0]:
-            ax.set_ylabel("Mean Moral Reasoning Stage", fontsize=9)
+            ax.set_ylabel("Mean Moral Reasoning Stage", fontsize=15)
         ax.set_ylim(4.8, 6.3)
         ax.yaxis.set_major_locator(mticker.MultipleLocator(0.25))
-        _log_param_xticks(ax, sub["params_B_plot"].values)
+        ax.tick_params(axis='both', which='major', labelsize=13)
+        _log_param_xticks(ax, sub["params_B_plot"].values, fontsize=13)
         if len(x_plot) > 1:
             ax.set_xlim(x_plot.min() - 0.1, x_plot.max() + 0.15)
 
     # Scenario annotation
     scenario = analysis_results.get("scenario", "")
     fig.text(0.5, -0.01, f"Detected pattern: {scenario}",
-             ha="center", fontsize=10, style="italic", color="#444")
+             ha="center", fontsize=13, style="italic", color="#444")
 
     # Shared legend
     handles = _provider_legend_handles()
@@ -184,9 +185,10 @@ def plot_emergence_curves(
         mpatches.Patch(color="#457b9d", alpha=0.3, label="95% CI"),
     ]
     fig.legend(handles=handles, loc="lower center", ncol=6,
-               bbox_to_anchor=(0.5, -0.13), fontsize=8, framealpha=0.9)
+               bbox_to_anchor=(0.5, -0.06), fontsize=12, framealpha=0.9)
 
-    plt.tight_layout()
+    plt.tight_layout(pad=2.0, h_pad=1.0, w_pad=1.0)
+    fig.subplots_adjust(bottom=0.15)
     out = OUT_DIR / "fig1_emergence_curves.png"
     plt.savefig(out)
     plt.close()

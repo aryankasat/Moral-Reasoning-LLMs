@@ -205,10 +205,10 @@ def plot_radar_grid(df: pd.DataFrame, out_dir: Path) -> None:
 
         # Spoke labels
         ax.set_xticks(angles[:-1])
-        ax.set_xticklabels(dilemmas, fontsize=6.5, color="#333333")
+        ax.set_xticklabels(dilemmas, fontsize=10.0, color="#333333")
         ax.set_ylim(0, 6)
         ax.set_yticks([2, 4, 6])
-        ax.set_yticklabels(["S2", "S4", "S6"], fontsize=5.5, color="#999999")
+        ax.set_yticklabels(["S2", "S4", "S6"], fontsize=9.0, color="#999999")
         ax.grid(color="#cccccc", linewidth=0.5)
         ax.spines["polar"].set_linewidth(0.5)
         ax.spines["polar"].set_color(prov_col)
@@ -217,7 +217,7 @@ def plot_radar_grid(df: pd.DataFrame, out_dir: Path) -> None:
         params = int(model_meta.loc[model_name, "params_B"])
         ax.set_title(
             f"{model_name}\n({params} B)",
-            fontsize=6.8, pad=8, color="#222222", fontweight="bold",
+            fontsize=11.0, pad=8, color="#222222", fontweight="bold",
             bbox=dict(boxstyle="round,pad=0.2", facecolor=prov_col,
                       edgecolor="none", alpha=0.18),
         )
@@ -233,15 +233,15 @@ def plot_radar_grid(df: pd.DataFrame, out_dir: Path) -> None:
     ]
     fig.legend(
         handles=leg_handles,
-        title="Prompt Type", title_fontsize=8,
+        title="Prompt Type", title_fontsize=12,
         loc="lower center", ncol=3,
         bbox_to_anchor=(0.5, -0.02),
-        fontsize=8, framealpha=0.92, edgecolor="#cccccc",
+        fontsize=12, framealpha=0.92, edgecolor="#cccccc",
     )
 
     fig.suptitle(
         "Stage Profile Across Dilemmas by Prompt Type  (Radar Charts)",
-        y=1.02, fontsize=11, fontweight="bold",
+        y=1.02, fontsize=16, fontweight="bold",
     )
     fig.tight_layout()
     _save(fig, out_dir, "fig2_radar_grid.png")
