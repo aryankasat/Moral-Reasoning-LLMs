@@ -12,13 +12,34 @@
 \usepackage{float}        % enables [H] forced figure placement
 \usepackage{placeins}     % enables \FloatBarrier
 
+\iclrfinalcopy  % enables author names (removes blind-review mode)
+
 \begin{document}
 
 \title{Reasoning or Rhetoric? An Empirical Analysis of Moral Reasoning Explanations in Large Language Models}
 
-\author{Anonymous Authors}
+\author{%
+  Aryan Kasat$^{*}$ \\
+  TCS AI Practice
+  \And
+  Smriti Singh$^{*}$ \\
+  Zach's Investment
+  \And
+  Aman Chadha$^{*}$ \\
+  Apple GenAI
+  \And
+  Vinija Jain$^{*}$ \\
+  Google GenAI
+}
 
 \maketitle
+
+% Clear the "Published at ICLR 2026" running header for arXiv
+\fancyhead{}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\footnotetext[1]{\textbf{This work is independent of the authors' roles at their respective companies.}}
+\renewcommand{\thefootnote}{\arabic{footnote}}
 
 
 % -----------------------------------------------------------------------
