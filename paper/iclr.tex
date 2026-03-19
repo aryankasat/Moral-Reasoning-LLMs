@@ -9,6 +9,8 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{float}        % enables [H] forced figure placement
+\usepackage{placeins}     % enables \FloatBarrier
 
 \begin{document}
 
@@ -55,15 +57,15 @@ To investigate this question, we conduct a large-scale empirical study evaluatin
   \centering
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{images/analysis1_fig2_scatter_scale_vs_stage.png}
-    \caption{Scale vs.\ moral stage (Spearman $\rho=0.52$). Despite a statistically significant correlation, the entire range spans $<$1 stage point (5.00--6.00), and even the smallest model sits firmly in the post-conventional region.}
+    \includegraphics[width=\textwidth]{images/analysis3_fig2_radar_grid.png}
+    \caption{Stage profile across dilemmas by prompt type (radar charts). Each model's hexagonal profile is nearly identical across all six dilemmas and all three prompt types, illustrating near-zero cross-dilemma and cross-prompt variability.}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{images/analysis3_fig2_icc_consistency_bar.png}
-    \caption{Cross-dilemma ICC per model. Every model exceeds ICC~0.90, indicating near-robotic uniformity across dilemmas: the inverse of the contextual variability characteristic of human moral reasoning.}
+    \includegraphics[width=\textwidth]{images/analysis4_fig2_histogram_grid.png}
+    \caption{Per-model stage proportion vs.\ human adult baseline (dashed red). All 13 LLMs concentrate responses in Stages~5--6; Jensen--Shannon divergences from the human baseline are large ($\mathrm{JSD}\approx0.20$--$0.76$, all $\chi^2\!: p{<}0.001$), confirming the distributional inversion.}
   \end{subfigure}
-  \caption{\textbf{Two Headline Anomalies.} \emph{Left:} Scale carries only a small practical effect on moral stage despite statistical significance. \emph{Right:} All models produce logically indistinguishable responses across six semantically distinct dilemmas (ICC~$>$~0.90), a rigidity finding that contrasts sharply with the contextual sensitivity of human moral cognition. Together, these patterns motivate the moral ventriloquism hypothesis.}
+  \caption{\textbf{Two Headline Anomalies.} \emph{Left:} Nearly identical radar profiles across all six morally distinct dilemmas and three prompt types reveal a cross-dilemma rigidity inconsistent with context-sensitive human moral reasoning. \emph{Right:} Per-model stage distributions diverge sharply from the human adult baseline --- LLMs produce the inverse of the Stage~4-dominant human pattern, clustering uniformly in post-conventional Stages~5--6. Together these patterns motivate the moral ventriloquism hypothesis.}
   \label{fig:intro_preview}
 \end{figure}
 
@@ -339,7 +341,7 @@ Shannon entropy per model was computed over the six-category stage distribution 
 \label{app:analysis7}
 % -----------------------------------------------------------------------
 
-Reasoning-tuned models produce substantially longer responses (mean 387 words) than base-RLHF models (mean 241 words) and coding-tuned models (mean 198 words). Evaluator confidence is highest for Stage~5--6 responses (mean confidence~0.87) and markedly lower for the rare Stage~3--4 responses (mean confidence~0.71), indicating that the scoring pipeline is most reliable precisely where it is most frequently applied. Table~\ref{tab:judge_agreement} reports inter-judge reliability across the three scoring models; low cross-judge variance confirms pipeline stability.
+Reasoning-tuned models produce substantially longer responses (mean 387 words) than base-RLHF models (mean 241 words) and coding-tuned models (mean 198 words). Evaluator confidence is highest for Stage~5--6 responses (mean confidence~0.87) and markedly lower for the rare Stage~3--4 responses (mean confidence~0.71), indicating that the scoring pipeline is most reliable precisely where it is most frequently applied. Table~\ref{tab:judge_agreement} reports inter-judge reliability across the three scoring models; low cross-judge variance confirms pipeline stability. Figure~\ref{fig:stage_heatmap} (Appendix~\ref{app:figures}) shows the full per-model stage distribution heatmap, confirming that all 13 models concentrate entirely in Stages~5--6 across every evaluated configuration.
 
 \begin{table}[h]
 \centering
@@ -414,10 +416,11 @@ Logistic threshold detection reveals that semantic density and syntactic complex
 \label{app:figures}
 % -----------------------------------------------------------------------
 
+\FloatBarrier
 \subsection{Dataset Statistics}
 \label{app:dataset}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Dataset statistics for the moral reasoning evaluation.}
 \label{tab:dataset}
@@ -435,10 +438,11 @@ Observations for factorial ANOVA & 234 \\
 \end{tabular}
 \end{table}
 
+\FloatBarrier
 \subsection{Mean Stage Per Model}
 \label{app:model_table}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Mean Kohlberg stage per model. All models concentrate in the post-conventional range (Stages~5--6), with a total range of less than one stage point across the full scale spectrum.}
 \label{tab:stage_results}
@@ -463,65 +467,150 @@ Qwen3-32B             & 32B  & 5.00 \\
 \end{tabular}
 \end{table}
 
+\FloatBarrier
 \subsection{Scale vs.\ Moral Stage Scatter}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.72\textwidth]{images/analysis1_fig2_scatter_scale_vs_stage.png}
   \caption{\textbf{RQ1: Scale vs.\ Moral Stage.} Spearman $\rho=0.52$ between log-parameter count and mean stage confirms a moderate positive correlation, but the entire range spans $<1$ stage point (5.00--6.00) and even the smallest model (Ministral 8B) sits firmly in the post-conventional region.}
   \label{fig:analysis1}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{images/analysis1_fig4_bar_mean_stage.png}
+  \caption{\textbf{RQ1: Mean Moral Reasoning Stage per Model (Bar Chart).} Mean Kohlberg stage for each of the 13 evaluated LLMs, colored by provider. The narrow spread from 5.00 (Qwen3-32B) to 6.00 (Qwen3-235B Thinking) confirms that all models operate uniformly in the post-conventional tier, regardless of scale or organizational origin.}
+  \label{fig:mean_stage_bar}
+\end{figure}
+
+\FloatBarrier
 \subsection{Prompting Strategy Effects}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.72\textwidth]{images/analysis2_fig3_stacked_stage_dist.png}
   \caption{\textbf{RQ2: Prompting Strategy Effects.} Stacked stage distributions across zero-shot, chain-of-thought, and roleplay configurations. All three remain overwhelmingly post-conventional; no configuration shifts the distribution toward the Stage~4-dominant human baseline (Friedman $\chi^2(2)=3.84$, $p=0.15$).}
   \label{fig:analysis2}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/analysis2_fig1_violin_by_alignment.png}
+  \caption{\textbf{RQ2: Stage Distribution by Alignment Type.} Violin plots comparing the stage distributions of RLHF-aligned models, coding-tuned models, and base instruction-tuned models. Despite their different optimization objectives, all alignment categories produce nearly identical post-conventional distributions, confirming that the alignment procedure does not modulate the rhetorical framing of moral responses.}
+  \label{fig:violin_alignment}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/analysis2_fig4_pct_postconv.png}
+  \caption{\textbf{RQ2: Post-Conventional Response Rate by Model.} Lollipop chart of the percentage of responses scored at Stage~5 or higher for each model, broken down by prompt type (zero-shot, CoT, roleplay). Post-conventional rates consistently exceed 80\% across models and conditions; the prompt type with the highest rate varies by model, indicating idiosyncratic rather than systematic prompt sensitivity.}
+  \label{fig:pct_postconv}
+\end{figure}
+
+\FloatBarrier
 \subsection{Cross-Dilemma ICC Bar Chart}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.72\textwidth]{images/analysis3_fig2_icc_consistency_bar.png}
   \caption{\textbf{RQ3: Cross-Dilemma Consistency.} Intraclass Correlation Coefficients per model across six dilemmas. Every model exceeds ICC~0.90, indicating near-robotic uniformity. Human ICC values for moral reasoning typically fall well below 0.60, reflecting genuine contextual sensitivity that LLMs lack.}
   \label{fig:analysis3}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/analysis3_fig3_violin_composite.png}
+  \caption{\textbf{RQ3: Stage Distribution per Model Broken Down by Prompt Type.} Composite violin plots showing the density of Kohlberg stage scores for each model across zero-shot (blue), chain-of-thought (orange), and roleplay (green) prompt configurations, with a right-side bar chart displaying within-model stage standard deviation. The right-pane bars are compared to the dashed red line marking the human baseline SD ($\approx$0.75), underscoring that even the most variable LLM is considerably less context-sensitive than human raters.}
+  \label{fig:violin_composite}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{images/analysis3_fig5_bubble_scale_icc.png}
+  \caption{\textbf{RQ3: Model Scale vs.\ Cross-Dilemma Consistency (ICC).} Bubble chart placing each model on axes of approximate parameter count (log scale, $x$-axis) and ICC(2,1) cross-dilemma consistency ($y$-axis). Bubble area encodes within-model stage standard deviation. A negative Spearman correlation ($\rho=-0.46$, n.s.) suggests that larger models are not more consistent per dilemma; DeepSeek-V3.1~671B displays notably low ICC despite its scale, while small models such as Ministral~8B achieve near-perfect consistency.}
+  \label{fig:bubble_icc}
+\end{figure}
+
+\FloatBarrier
 \subsection{Moral Decoupling Heatmap}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{images/analysis5_fig2_stage_action_heatmap.png}
   \caption{\textbf{RQ5: Moral Decoupling Heatmap.} Cross-tabulation of reasoning stage vs.\ action choice. Off-diagonal cells indicate moral decoupling: high-stage justifications (Stage~5--6) paired with low-stage actions (Stage~3--4).}
   \label{fig:analysis5heatmap}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/analysis5_fig1_action_by_dilemma.png}
+  \caption{\textbf{RQ5: Action Distributions Aggregated by Dilemma.} Horizontal stacked bar chart showing the proportion of rule-breaking (orange) vs.\ rule-following (teal) action choices across all models for each of the six moral dilemmas. Trolley, Stolen Food, and Promise dilemmas elicit near-universal rule-breaking; the Doctor dilemma elicits near-universal rule-following; Lifeboat and Heinz fall in between, revealing that the nature of the dilemma --- not the model --- drives action choice.}
+  \label{fig:action_by_dilemma}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/analysis5_fig4_action_by_stage_model.png}
+  \caption{\textbf{RQ5: Action Choice by Kohlberg Stage for Each Model.} Small-multiple line plots showing, for each model, how the percentage of rule-breaking actions varies across Stages~5 and~6 (the only stages where responses appear). The dashed grey line shows the expected alignment between post-conventional reasoning and principled rule-breaking. Most models show non-monotonic patterns (high at Stage~5, lower at Stage~6 or vice versa), reinforcing the moral decoupling result that action choices are not determined by reasoning stage.}
+  \label{fig:action_by_stage}
+\end{figure}
+
+\FloatBarrier
 \subsection{Stage Score Distributions by Scale Group}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{images/analysis8_box_violin.png}
   \caption{\textbf{RQ6: Stage Distributions by Scale Group.} Even the Small group (8--32B) is entirely post-conventional; scale lifts the floor but cannot produce developmental differentiation.}
   \label{fig:analysis8b}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{images/analysis8_posthoc_heatmap.png}
+  \caption{\textbf{Post-Hoc Tukey HSD Comparisons by Scale and Training Type.} Heatmap grids of Tukey-adjusted $p$-values from pairwise comparisons. Left: scale group comparisons (Small / Mid / Large) within Base-RLHF training reveal that Small vs.\ Large ($p=0.102$) is the only pair approaching significance. Bottom: training comparisons within the Large-scale group show a significant Base-RLHF vs.\ Reasoning-Tuned difference ($p=0.039^*$), indicating that reasoning specialization provides a modest but statistically reliable lift in modal reasoning stage even after adjusting for multiple comparisons.}
+  \label{fig:tukey_heatmap}
+\end{figure}
+
+\FloatBarrier
+\subsection{Stage Distribution Heatmap by Model}
+\label{app:stage_heatmap}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{images/analysis7_fig3_stage_heatmap.png}
+  \caption{\textbf{Stage Distribution Heatmap by Model.} Fraction of responses at each Kohlberg stage per model, sorted by parameter count (ascending bottom to top). Orange-bordered rows and the dashed teal line indicate models meeting the $\geq$20\% post-conventional threshold. All 13 models concentrate entirely in Stages~5--6; Stages~1--3 receive 0\% of responses across virtually all models, confirming the distributional inversion reported in Table~\ref{tab:stage_distribution}. Qwen3-235B~(Thinking) and Qwen3-32B each produce 100\% Stage~6 and 100\% Stage~5 responses respectively, illustrating the ceiling and floor of the post-conventional regime.}
+  \label{fig:stage_heatmap}
+\end{figure}
+
+\FloatBarrier
+\subsection{Emergence vs.\ Parameter Count}
+\label{app:emergence_regression}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/analysis7_fig2_emergence_vs_params.png}
+  \caption{\textbf{Emergence of Post-Conventional Reasoning vs.\ Parameter Count (Segmented Regression).} Mean moral reasoning stage (with 95\% CI) for each model plotted against log-parameter count. A segmented regression identifies a changepoint at $\approx$32B parameters: the pre-changepoint segment (red, slope $=+0.383$) shows rapid growth, while the post-changepoint segment (green, slope $=+0.267$) shows continued but attenuated growth. The overall linear fit (grey dashed, $r=0.36$) and the orange dot-dash line marking Stage~5+ emergence at~8B together indicate that post-conventional framing appears ubiquitously before significant scale is reached.}
+  \label{fig:emergence_regression}
+\end{figure}
+
+\FloatBarrier
 \subsection{Emergence Curves}
 \label{app:emergence}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{images/analysis7_fig1_emergence_curves.png}
   \caption{\textbf{Emergence of Post-Conventional Moral Reasoning Across Model Scale.} Post-conventional outputs emerge at high rates even for the smallest evaluated models and plateau near ceiling across all scale tiers, indicating that the rhetorical register of mature moral reasoning is acquired early in the scaling regime rather than emerging gradually with capability growth.}
   \label{fig:emergence}
 \end{figure}
 
+\FloatBarrier
 \subsection{Headline Stage Distributions}
 \label{app:headline}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -535,6 +624,64 @@ Qwen3-32B             & 32B  & 5.00 \\
   \end{subfigure}
   \caption{\textbf{Headline Finding.} LLMs uniformly produce post-conventional moral language (Stages~5--6, 86\% of all responses), the inverse of the Stage~4-dominant human baseline: a pattern that holds across all 13 evaluated models, three prompt types, and six moral dilemmas.}
   \label{fig:headline}
+\end{figure}
+
+\FloatBarrier
+\subsection{Linguistic Patterns: Moral Vocabulary Richness}
+\label{app:vocab}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{images/analysis6_fig3_moral_vocabulary_richness.png}
+  \caption{\textbf{RQ6: Distribution of Moral Vocabulary Richness across LLMs.} Horizontal box plots of the count of unique moral and reasoning tokens ($>$3 characters) per response for each model. Claude Sonnet~4.5 and Qwen3-235B~(Thinking) display the highest medians and widest spread, reflecting their tendency toward elaborate justifications. Llama models and GPT-4o cluster at the low end despite their large scale, suggesting that vocabulary richness is driven more by instruction-tuning style than raw parameter count.}
+  \label{fig:vocab_richness}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{images/analysis6_fig4_target_keyword_heatmap.png}
+  \caption{\textbf{RQ6: Theoretical Vocabulary Compliance Heatmap.} Percentage of responses utilizing canonical stage-specific keywords for each model at each Kohlberg stage it was evaluated on. Nearly all models achieve 100\% compliance at Stage~6, while Stage~5 compliance varies (40\%--100\%) with GPT-4o showing the largest shortfall. Stage~4 compliance applies only to Llama~4~Scout and GPT-4o, both of which occasionally produce Stage~4 evaluations, with perfect keyword usage. High compliance confirms that the evaluator scaffolding elicits stage-appropriate vocabulary even when broader reasoning patterns remain post-conventional.}
+  \label{fig:keyword_heatmap}
+\end{figure}
+
+\FloatBarrier
+\subsection{Sub-Capability Predictors of Moral Stage}
+\label{app:subcap}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/analysis9_fig_A_correlation_heatmap.png}
+  \caption{\textbf{Capability Correlation Matrix (Pearson $r$, FDR-corrected).} Pairwise correlations among eight response-level capability metrics and mean moral reasoning stage across 13 models. Response Length and Sentence Count are strongly correlated with each other ($r=0.93^{***}$), as are Average Sentence Length and Syntactic Complexity ($r=0.92^{***}$). Neither metric shows a significant correlation with Mean Stage or Post-Conventional percentage, confirming that surface linguistic elaboration does not predict moral sophistication in the Kohlberg sense.}
+  \label{fig:cap_corr}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{images/analysis9_fig_C_regression_coefficients.png}
+  \caption{\textbf{Multi-Capability Predictors of Mean Moral Reasoning Stage (Standardized Coefficients).} Forest plot of standardized regression coefficients ($\beta$) from a multiple regression predicting mean stage from eight capability predictors ($R^2=0.840$, Adj-$R^2=0.521$, $p=0.183$). Sentence Count carries the largest positive coefficient, while Response Length is the strongest negative predictor, reflecting multicollinearity between elaboration metrics. Wide confidence intervals and a non-significant overall $F$-test indicate that no individual capability dimension reliably predicts moral stage, consistent with the broader finding that conventional measures of language capability do not map onto Kohlberg stage.}
+  \label{fig:cap_regr}
+\end{figure}
+
+\FloatBarrier
+\subsection{Stage Transition Dynamics}
+\label{app:transitions}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.55\textwidth]{images/analysis10_figE_transition_matrix.png}
+  \caption{\textbf{Aggregate Stage Transition Matrix.} Heatmap of inter-model stage transition probabilities (rows = source model stage; columns = target model stage) when models are ordered by parameter count. Transitions from Stage~4 overwhelmingly target Stage~6 (0.64), suggesting a discontinuous jump rather than a gradual progression. Stage~5 models transition equally to Stage~5 (0.56) and Stage~6 (0.43), while Stage~6 models most often stay at Stage~5 in the next (smaller) model, implying mean-reversion in the scale-ordered sequence. These patterns are consistent with quantized rather than smooth scaling behavior in moral reasoning stage.}
+  \label{fig:transition_matrix}
+\end{figure}
+
+\FloatBarrier
+\subsection{Scale-Ordered Moral Stage Distribution}
+\label{app:scale_dist}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{images/analysis10_figA_transition_timing_heatmap.png}
+  \caption{\textbf{Moral Stage Distribution by Model Scale.} Heatmap of the proportion of responses at each Kohlberg stage for 13 models ordered by increasing parameter count (bottom to top). Virtually all responses fall in Stage~5 or Stage~6; Stage~4 responses appear only for Llama~4~Scout and GPT-4o ($\approx$11\%). Qwen3-235B~(Thinking) reaches 100\% Stage~6, while Qwen3-32B achieves 100\% Stage~5 --- illustrating that the balance between these two post-conventional stages shifts as a function of scale and instruction-tuning orientation, yet neither model produces qualitatively different moral reasoning relative to the human developmental baseline.}
+  \label{fig:scale_dist}
 \end{figure}
 
 \end{document}
