@@ -1,0 +1,30 @@
+{
+  "coherence_vs_pvalue": {
+    "spearman_r": 0.1132,
+    "spearman_p": 0.7128,
+    "pearson_r": 0.1718,
+    "pearson_p": 0.5747,
+    "kendall_tau": 0.1307,
+    "kendall_p": 0.5729,
+    "n": 13,
+    "interpretation": "Positive r \u2192 higher NLI coherence correlates with higher p_value (i.e., less Kohlberg-based decoupling). Negative r \u2192 higher coherence correlates with lower p_value (more Kohlberg-based decoupling)."
+  },
+  "coherence_vs_decoupling": {
+    "spearman_r": -0.1132,
+    "spearman_p": 0.7128,
+    "pearson_r": -0.1718,
+    "pearson_p": 0.5747,
+    "kendall_tau": -0.1307,
+    "kendall_p": 0.5729,
+    "n": 13,
+    "interpretation": "Positive r \u2192 higher NLI coherence correlates with stronger Kohlberg-based decoupling (more stage-action mismatch). Negative r \u2192 higher coherence correlates with weaker decoupling."
+  },
+  "coherence_gap_stats": {
+    "mean_gap": 0.1532,
+    "median_gap": 0.1585,
+    "std_gap": 0.1535,
+    "min_gap": -0.08,
+    "max_gap": 0.4743,
+    "interpretation": "coherence_gap = NLI_coherence \u2212 decoupling_strength. Positive gap \u2192 model's reasoning-action link is stronger than what Kohlberg-based consistency suggests; reasoning is internally coherent even if it violates stage-based expectations."
+  }
+}
