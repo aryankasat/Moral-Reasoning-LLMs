@@ -1,0 +1,14 @@
+model_name,h_statistic,p_value,is_statistically_coherent
+qwen3_235b_thinking,0.0,1.0,True
+qwen3_32b,0.0,1.0,True
+deepseek_v3_1,9.4444,0.09259683032026346,True
+llama3_70B,13.3571,0.020252205962661446,False
+gpt-oss-120B,13.8615,0.01651328037790263,False
+claude_sonnet_4_5,14.45,0.012990007122353953,False
+gpt-4o,15.9375,0.007024798178929509,False
+llama4_scout,15.9375,0.007024798178929509,False
+claude_haiku_3_5,17.0,0.00449979697797056,False
+qwen3_80b_instruct,17.0,0.004499796977970557,False
+deepseek_r1,17.0,0.004499796977970557,False
+qwen3_30B_Coder_Instruct,17.0,0.004499796977970557,False
+ministral_8b_instruct,17.0,0.004499796977970538,False
