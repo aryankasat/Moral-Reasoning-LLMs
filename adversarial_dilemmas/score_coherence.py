@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 def compute_lexical_coherence(responses):
     """
     Computes lexical coherence as the mean pairwise cosine similarity 
-    of TF-IDF vectors of the model's responses across all dilemmas.
+    of TF-IDF vectors of the model's responses.
     """
     if len(responses) < 2:
         return 0.0
@@ -49,37 +49,62 @@ def score_cross_pair_coherence():
         eval_path = os.path.join(eval_dir, f"{model_name}_evaluation.xlsx")
         
         if not os.path.exists(eval_path):
-            print(f"Warning: Evaluation data missing for {model_name}, skipping stage coherence.")
+            print(f"Warning: Evaluation data missing for {model_name}, skipping.")
             continue
             
-        # 1. Lexical Coherence
         df_data = pd.read_excel(df_path)
-        responses = df_data['response'].dropna().astype(str).tolist()
-        lexical_coh = compute_lexical_coherence(responses)
-        
-        # 2. Stage Coherence
         df_eval = pd.read_excel(eval_path)
+        
+        # Align evaluation data into the main dataframe
         if 'kohlberg_stage' in df_eval.columns:
-            stages = df_eval['kohlberg_stage']
-            stage_coh = compute_stage_coherence(stages)
+            df_data['kohlberg_stage'] = df_eval['kohlberg_stage']
         else:
-            stage_coh = 0.0
+            df_data['kohlberg_stage'] = np.nan
             
+        # 1. Dilemma-wise Coherence
+        dilemma_lexical = []
+        dilemma_stage = []
+        for _, group in df_data.groupby('dilemma_type'):
+            lex = compute_lexical_coherence(group['response'].dropna().astype(str).tolist())
+            dilemma_lexical.append(lex)
+            if not group['kohlberg_stage'].isna().all():
+                st = compute_stage_coherence(group['kohlberg_stage'])
+                dilemma_stage.append(st)
+                
+        mean_dilemma_lexical = np.mean(dilemma_lexical) if dilemma_lexical else 0.0
+        mean_dilemma_stage = np.mean(dilemma_stage) if dilemma_stage else 0.0
+
+        # 2. Prompt-wise Coherence
+        prompt_lexical = []
+        prompt_stage = []
+        for _, group in df_data.groupby('prompt_type'):
+            lex = compute_lexical_coherence(group['response'].dropna().astype(str).tolist())
+            prompt_lexical.append(lex)
+            if not group['kohlberg_stage'].isna().all():
+                st = compute_stage_coherence(group['kohlberg_stage'])
+                prompt_stage.append(st)
+                
+        mean_prompt_lexical = np.mean(prompt_lexical) if prompt_lexical else 0.0
+        mean_prompt_stage = np.mean(prompt_stage) if prompt_stage else 0.0
+        
         # 3. Overall Coherence (Normalized mapping to 0-10 scale for easier interpretability)
-        # Lexical coh is usually low (0.1 to 0.4). Stage coh is usually (0.5 to 1.0).
-        # We will scale them slightly to make a neat 0-10 composite score.
-        normalized_lexical = min(lexical_coh * 2.5, 1.0) # Scale up lexical overlap
-        composite_score = ((normalized_lexical + stage_coh) / 2.0) * 10.0
+        # Dilemma-wise lexical coherence is highly representative. 
+        # We scale it slightly (max ~0.8) and average with stage coherence (max 1.0).
+        normalized_lexical = min(mean_dilemma_lexical * 1.5, 1.0)
+        composite_score = ((normalized_lexical + mean_dilemma_stage) / 2.0) * 10.0
         
         results.append({
             "model_name": model_name,
-            "lexical_coherence": round(lexical_coh, 3),
-            "stage_coherence": round(stage_coh, 3),
+            "dilemma_lexical_coherence": round(mean_dilemma_lexical, 3),
+            "dilemma_stage_coherence": round(mean_dilemma_stage, 3),
+            "prompt_lexical_coherence": round(mean_prompt_lexical, 3),
+            "prompt_stage_coherence": round(mean_prompt_stage, 3),
             "overall_score": round(composite_score, 2)
         })
-        print(f"[{model_name}] Lexical: {lexical_coh:.3f} | Stage: {stage_coh:.3f} | Overall: {composite_score:.2f}/10")
+        print(f"[{model_name}] Dilemma Lexical: {mean_dilemma_lexical:.3f} | Dilemma Stage: {mean_dilemma_stage:.3f} | Overall: {composite_score:.2f}/10")
         
     res_df = pd.DataFrame(results)
+    os.makedirs("results", exist_ok=True)
     res_df.to_csv("results/coherence_scores.csv", index=False)
     print(f"\nSaved {len(res_df)} scores to results/coherence_scores.csv")
 

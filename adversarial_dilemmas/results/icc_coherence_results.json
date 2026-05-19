@@ -1,0 +1,14 @@
+{
+    "ICC2_Cross_Pair_Coherence": 0.2104,
+    "Interpretation": "Poor",
+    "Variance_Components": {
+        "Model_Identity_Variance": 0.0589,
+        "Contextual_Pairing_Variance": 0.0743,
+        "Interaction_Error_Variance": 0.1469
+    },
+    "Variance_Proportions": {
+        "Model_Identity_Pct": 21.04,
+        "Contextual_Pairing_Pct": 26.53,
+        "Interaction_Error_Pct": 52.43
+    }
+}

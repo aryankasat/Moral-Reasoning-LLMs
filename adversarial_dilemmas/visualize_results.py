@@ -37,8 +37,8 @@ def visualize_results():
 
     # Right subplot: Lexical vs Stage Coherence Scatter
     sns.scatterplot(
-        x="lexical_coherence", 
-        y="stage_coherence", 
+        x="dilemma_lexical_coherence", 
+        y="dilemma_stage_coherence", 
         hue="model_name",
         s=200,
         data=df,

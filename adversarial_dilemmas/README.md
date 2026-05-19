@@ -18,15 +18,18 @@ The dilemmas are dynamically generated using NVIDIA's `nemotron-3-super-120b-a12
 
 The resulting CSV is formatted for direct piloting with human participants to establish baseline human susceptibility to the rhetorical injections before evaluating LLMs.
 
-## 2. Cross-Pair Coherence Scoring
+## 2. Multi-Factorial Cross-Pair Coherence
 
-We analyzed the existing models across the repository to determine their baseline consistency when handling paired standard moral dilemmas.
+Standard correlation only tracks relative linear shifts. Instead, we compute **Cross-Pair Coherence** across the entire multi-dimensional evaluation grid (13 Models $\times$ 3 Prompts $\times$ 6 Dilemmas) to measure absolute structural invariance.
 
-- **Script:** `score_coherence.py`
-- **Output:** `results/coherence_scores.csv`
+We partition the reasoning variance via ANOVA to calculate the **Intraclass Correlation Coefficient (ICC)**, mathematically isolating whether variance is driven by the Model's identity or the Contextual Pairing.
+
+- **Scripts:** `score_coherence.py` and `complex_statistical_tests.py`
+- **Outputs:** `results/coherence_scores.csv` and `results/icc_coherence_results.json`
 - **Metrics Computed:**
-  1. **Lexical Coherence:** TF-IDF semantic consistency across dilemma responses.
-  2. **Stage Coherence:** Standard deviation of the Kohlberg stages.
+  1. **Global ICC2:** Measures absolute agreement across the grid.
+  2. **Variance Proportions:** Precisely calculates the percentage of variance attributed to Model Identity ($\sigma^2_{\text{model}}$) vs. Contextual Nuance ($\sigma^2_{\text{context}}$) vs. Noise ($\sigma^2_{\text{error}}$).
+  3. **Lexical Coherence:** Grouped TF-IDF semantic consistency across dilemma pairings.
 
 ## 3. Formal Statistical & Psychometric Testing
 
@@ -42,23 +45,27 @@ To ensure mathematical rigor, we implemented complex statistical evaluations des
 
 ## 4. Visualizations
 
-The results are compiled into 6 publication-ready, beautified graphs stored in `results/`.
+The results are compiled into 9 publication-ready, premium graphs stored in `results/`, utilizing rigorous academic styling and colorblind-friendly scientific palettes:
 
-- **Fig 1 (Kruskal Forest Plot):** Logarithmic p-value distributions marking statistically coherent vs. incoherent models.
-- **Fig 3 (Entropy Scatter):** Correlates predictability (Shannon Entropy) with statistical significance.
-- **Fig 4 (PCA Scree Plot):** Tests for a unified moral construct by charting explained variance components.
-- **Fig 5 (Hierarchical Clustermap):** A correlation heatmap identifying models with highly similar ethical structures.
+- **Fig 1 (Kruskal Forest Plot):** Logarithmic p-value scatter marking statistically coherent vs. incoherent models.
+- **Fig 2 (Stage Distributions):** Faceted KDE ridge plots showing probability densities of reasoning stages.
+- **Fig 3 (Entropy Jointplot):** Correlates predictability (Shannon Entropy) with statistical significance via marginal density axes.
+- **Fig 4 (PCA Scree Plot):** Tests for a unified moral construct by charting filled explained variance areas.
+- **Fig 5 (Model Clustermap):** A correlation heatmap identifying models with highly similar ethical structures.
 - **Fig 6 (PCA Biplot):** A complex vector plot showing both the model score locations and the specific dilemmas driving their variance.
+- **Fig 7 (Variance Partitioning):** A 100% stacked horizontal bar chart breaking down the exact proportions of ICC variance.
+- **Fig 8a (Absolute Clustermap):** A hierarchical `viridis` clustermap grouping models that share underlying moral topologies.
+- **Fig 8b (Deviation Matrix):** A diverging `vlag` heatmap mapping every cell's deviation from its model's mean stage, providing striking visual proof of massive contextual variance.
 
 ## Usage
 
-To reproduce the entire framework, run the pipeline scripts in order:
+To reproduce the entire framework, run the pipeline scripts in order from within the `adversarial_dilemmas` directory:
 
 ```bash
 # 1. Generate Dilemmas
 python generate_dilemmas.py
 
-# 2. Score Coherence Locally
+# 2. Score Local Coherence
 python score_coherence.py
 python visualize_results.py
 
@@ -66,7 +73,8 @@ python visualize_results.py
 python statistical_tests.py
 python visualize_statistics.py
 
-# 4. Information-Theoretic & Dimensional Analysis
+# 4. Information-Theoretic, Dimensional & ICC Analysis
 python complex_statistical_tests.py
 python visualize_advanced.py
+python visualize_icc.py
 ```
