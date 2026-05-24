@@ -1,6 +1,6 @@
 # Pre-Training Corpus Kohlberg Moral Reasoning Evaluation
 
-> **Research Question**: To what extent is the post-conventional (Stage 5–6) moral reasoning skew observed in fine-tuned LLMs explained by the baseline composition of pre-training web corpora (Common Crawl vs. Reddit philosophy threads) before any fine-tuning or instruction alignment?
+> **Research Question**: To what extent is the post-conventional (Stage 5–6) moral reasoning skew observed in fine-tuned LLMs explained by the baseline composition of pre-training web corpora (Common Crawl vs. Reddit philosophy threads) before any further fine-tuning or instruction alignment?
 
 ---
 
